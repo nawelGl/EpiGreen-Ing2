@@ -1,0 +1,33 @@
+#Ignorer les fichiers et dossiers temporaires
+*.log
+*.tmp
+
+#Ignorer les fichiers générés automatiquement
+/out/
+/build/
+
+#Ignorer les fichiers spécifiques à IntelliJ IDEA
+.idea/
+*.iml
+
+#Eclipse
+.classpath
+.project
+.settings/
+
+#Intellij
+.idea/
+*.iml
+*.iws
+
+#Mac
+.DS_Store
+
+#Maven
+log/
+target/
+
+#Others
+*.class
+*.jar
+*.lst
