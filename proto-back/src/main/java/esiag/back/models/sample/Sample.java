@@ -5,6 +5,8 @@ import lombok.Data;
 import javax.persistence.*;
 import java.util.Date;
 
+
+//on definit des entity==> digramme de classe metier
 @Entity
 @Data
 @Table(name = "sample")
@@ -24,6 +26,8 @@ public class Sample {
     @Column(name = "float_sample")
     private Float floatSample;
 
+
+    //annotation
     @Enumerated(EnumType.STRING)
     @Column(name = "sample_type")
     private SampleType sampleType;

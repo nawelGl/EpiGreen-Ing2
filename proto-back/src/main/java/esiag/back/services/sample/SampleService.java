@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 
-@Service
+
+//implimetation des methodes,livrrable
+@Service  //annotation 'service' by spring
 public class SampleService {
 
     @Autowired
