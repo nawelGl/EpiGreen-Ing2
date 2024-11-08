@@ -13,7 +13,6 @@ pipeline {
             }
         }
 
-
         stage('Install Frontend Dependencies') {
             steps {
                 dir('proto-front') {
