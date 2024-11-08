@@ -7,6 +7,17 @@ pipeline {
     }
 
     stages {
+    stage('Setup Node.js') {
+                steps {
+                    // Charger Node.js configuré dans Global Tool Configuration
+                    tool name: 'NodeJS'  // Assure-toi que 'NodeJS' correspond au nom donné lors de la configuration
+
+                    // Vérifier la version de Node et npm pour s'assurer qu'ils sont correctement configurés
+                    sh 'node -v'
+                    sh 'npm -v'
+                }
+            }
+
         stage('Checkout') {
             steps {
                 git branch: 'nawel', url: 'git@github.com:nawelGl/EpiGreen-Ing2.git'
