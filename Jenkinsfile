@@ -9,7 +9,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'nawel', url: 'https://github.com/nawelGl/EpiGreen-Ing2.git'
+                git branch: 'nawel', url: 'git@github.com:nawelGl/EpiGreen-Ing2.git'
             }
         }
 
