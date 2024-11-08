@@ -13,7 +13,7 @@ pipeline {
                     tool name: 'NodeJS'  // Assure-toi que 'NodeJS' correspond au nom donné lors de la configuration
 
                     // Vérifier la version de Node et npm pour s'assurer qu'ils sont correctement configurés
-                    sh 'node -v'
+                    //sh 'node -v'
                     sh 'npm -v'
                 }
             }
