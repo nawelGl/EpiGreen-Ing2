@@ -38,11 +38,11 @@ pipeline {
             }
         }
 
-        stage('Setup Maven') {
+        /*stage('Setup Maven') {
             steps {
                 echo "Using Maven at ${env.MAVEN_HOME}"
             }
-        }
+        }*/
 
         stage('Build Backend') {
             steps {
