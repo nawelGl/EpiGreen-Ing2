@@ -19,6 +19,7 @@
     <maven.compiler.target>17</maven.compiler.target>
     <java.version>17</java.version>
     <maven.test.skip>true</maven.test.skip>
+    <main.class>esiag.back.EsiagBackApplication</main.class>
   </properties>
 
 
@@ -66,4 +67,26 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+
+  <!--Ajout du plugin exec:java-->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.1.1</version>
+        <executions>
+          <execution>
+            <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass> ${main.class} </mainClass>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
 </project>
