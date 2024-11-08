@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         NODE_VERSION = '20.10.0' // Version de Node.js pour le front-end
-        MAVEN_HOME = tool name: 'Maven_3.9.6' // Configuration de Maven sur Jenkins
+        //MAVEN_HOME = tool name: 'Maven_3.9.6' // Configuration de Maven sur Jenkins
     }
 
     stages {
