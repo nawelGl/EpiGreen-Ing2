@@ -68,6 +68,7 @@ pipeline {
                 sh 'mvn package -f proto-back/pom.xml'
             }
         }
+        
 
         stage('Archive Artifacts') {
             steps {
@@ -88,7 +89,6 @@ pipeline {
             }
         }
     }
-
     post {
         success {
             echo 'Pipeline exécutée avec succès !'
