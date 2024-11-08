@@ -3,20 +3,18 @@ pipeline {
 
     environment {
         NODE_VERSION = '20.10.0' // Version de Node.js pour le front-end
-        //MAVEN_HOME = tool name: 'Maven_3.9.6' // Configuration de Maven sur Jenkins
+        NODEJS_HOME = tool name: 'NodeJS'  // Configuration Node.js
+        PATH = "${NODEJS_HOME}/bin:${env.PATH}"  // Ajoute Node.js au PATH
     }
 
     stages {
-    stage('Setup Node.js') {
-                steps {
-                    // Charger Node.js configuré dans Global Tool Configuration
-                    tool name: 'NodeJS'  // Assure-toi que 'NodeJS' correspond au nom donné lors de la configuration
-
-                    // Vérifier la version de Node et npm pour s'assurer qu'ils sont correctement configurés
-                    //sh 'node -v'
-                    sh 'npm -v'
-                }
+        stage('Setup Node.js') {
+            steps {
+                // Vérifier la version de Node et npm pour s'assurer qu'ils sont correctement configurés
+                sh 'node -v'
+                sh 'npm -v'
             }
+        }
 
         stage('Checkout') {
             steps {
@@ -58,7 +56,7 @@ pipeline {
                 // Exécuter les tests Maven pour le back-end
                 sh 'mvn test -f proto-back/pom.xml'
                 // Exécuter les tests front-end, par exemple avec Jest pour React
-                dir('frontend') {
+                dir('proto-front') {
                     sh 'npm test'
                 }
             }
