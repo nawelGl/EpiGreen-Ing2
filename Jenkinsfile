@@ -13,14 +13,6 @@ pipeline {
             }
         }
 
-        /*stage('Setup Node.js') {
-            steps {
-                // Installer Node.js et npm pour le front-end React
-                sh "curl -sL https://deb.nodesource.com/setup_${env.NODE_VERSION} | sudo -E bash -"
-                sh 'sudo apt-get install -y nodejs'
-                sh 'node -v && npm -v'
-            }
-        }*/
 
         stage('Install Frontend Dependencies') {
             steps {
