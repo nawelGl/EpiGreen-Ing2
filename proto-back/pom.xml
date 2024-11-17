@@ -83,7 +83,7 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass> ${main.class} </mainClass>
+          <mainClass>${main.class}</mainClass>
         </configuration>
       </plugin>
 
@@ -94,10 +94,11 @@
         <executions>
           <execution>
             <id>application</id>
+            <phase>package</phase>
             <configuration>
               <archive>
                 <manifest>
-                  <mainClass>${main.class} </mainClass>
+                  <mainClass>${main.class}</mainClass>
                 </manifest>
               </archive>
             </configuration>
