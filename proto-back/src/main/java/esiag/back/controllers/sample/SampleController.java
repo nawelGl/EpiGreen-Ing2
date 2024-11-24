@@ -37,6 +37,18 @@ public class SampleController {
         return new ResponseEntity<>(sampleService.findOldestSample(), HttpStatus.OK);
     }
 
+    // Methode pour le insert
+    @PostMapping("/add")
+    public ResponseEntity<Sample> addSample(@RequestBody Sample sample) {
+        System.out.println("==========================");
+        System.out.println("Requête reçue : " + sample);
+        Sample savedSample = sampleService.addSample(sample);
+        System.out.println("==========================");
+
+        System.out.println(savedSample.toString());
+        return new ResponseEntity<>(savedSample, HttpStatus.CREATED);
+    }
+
     @PostMapping("update")
     public ResponseEntity<Sample> updateSample(@RequestBody Sample sample){
         boolean isUpdated = sampleService.updateSampleDate(sample);
