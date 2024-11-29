@@ -7,4 +7,4 @@ test
 test
 test
 test trigger H5
-test 3
+test 3 failed
