@@ -75,7 +75,7 @@ export default function Sample() {
 
   return (
     <div className="container text-center">
-      <h4 className="mx-2">Samples List test demo</h4>
+      <h4 className="mx-2">Samples List </h4>
 
       <button
         className="btn btn-outline-primary mb-3"
