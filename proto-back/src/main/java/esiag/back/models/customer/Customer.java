@@ -1,3 +1,11 @@
+package esiag.back.models.customer;
+
+import lombok.Data;
+import org.hibernate.annotations.Type;
+
+import javax.persistence.*;
+import java.util.Date;
+
 @Entity
 @Data
 @Table(name = "Customer")
