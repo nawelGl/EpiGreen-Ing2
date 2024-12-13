@@ -36,6 +36,12 @@ public class Customer{
     @Column(name = "City")
     private String city;
 
+    @Column(name = "x")
+    private double x;
+
+    @Column(name = "y")
+    private double y;
+
     //Constructeur sans paramètres :
     public Customer(){
 
@@ -100,5 +106,21 @@ public class Customer{
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public double getX() {
+        return x;
+    }
+
+    public void setX(double x) {
+        this.x = x;
+    }
+
+    public double getY() {
+        return y;
+    }
+
+    public void setY(double y) {
+        this.y = y;
     }
 }
