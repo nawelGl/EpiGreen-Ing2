@@ -29,6 +29,12 @@ public class Store{
     @Column(name = "City")
     private String city;
 
+    @Column(name = "x")
+    private int x;
+
+    @Column(name = "y")
+    private int y;
+
     //Constructeur sans paramètres :
     public Store(){
 
@@ -77,5 +83,21 @@ public class Store{
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
     }
 }
