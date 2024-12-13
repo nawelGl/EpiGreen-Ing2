@@ -50,4 +50,10 @@ public class SampleService {
         }
         return false;
     }
+
+    public Sample addSample(Sample sample) {
+        // Sauvegarde le nouveau sample dans le repository
+        Sample sampleInserted = sampleRepository.save(sample);
+        return  sampleInserted;
+    }
 }
