@@ -23,7 +23,7 @@ public class DistanceRequest{
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             //villesEphemeride = mapper.readValue(response.body(), VillesEphemeride.class);
-            System.out.println("Réponse HTTP : " + response);
+            System.out.println("Réponse HTTP : " + response.body());
         } catch (Exception e) {
             System.out.println("Erreur lors de la requête HTTP : " + e.getMessage());
         }
@@ -53,7 +53,7 @@ public class DistanceRequest{
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
             //villesEphemeride = mapper.readValue(response.body(), VillesEphemeride.class);
-            System.out.println("Réponse HTTP : " + response);
+            System.out.println("Réponse HTTP : " + response.body());
         } catch (Exception e) {
             System.out.println("Erreur lors de la requête HTTP : " + e.getMessage());
         }
