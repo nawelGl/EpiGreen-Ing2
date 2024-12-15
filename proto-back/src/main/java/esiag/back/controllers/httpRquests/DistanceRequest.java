@@ -10,7 +10,11 @@ import java.net.http.HttpResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 public class DistanceRequest{
+    protected static Logger distanceRequestLog= LogManager.getLogger(DistanceRequest.class);
     public static float getDistanceFromApi(Customer customer, Store store){
         double customerLatitude = customer.getY();
         double customerLongitude = customer.getX();
@@ -32,6 +36,7 @@ public class DistanceRequest{
             JsonNode rootNode = objectMapper.readTree(response.body());
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
 
+            distanceRequestLog.info("TEST LOGGER");
             System.out.println("Distance extraite : " + distance);
             return distance;
 
@@ -59,6 +64,7 @@ public class DistanceRequest{
             JsonNode rootNode = objectMapper.readTree(response.body());
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
 
+            distanceRequestLog.info("TEST LOGGER");
             System.out.println("Distance extraite : " + distance);
             return distance;
 
