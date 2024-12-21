@@ -14,12 +14,12 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 public class DistanceRequest{
-    protected static Logger distanceRequestLog= LogManager.getLogger(DistanceRequest.class);
+    protected static Logger logger = LogManager.getLogger(DistanceRequest.class);
     public static float getDistanceFromApi(Customer customer, Store store){
         double customerLatitude = customer.getLatitude();
         double customerLongitude = customer.getLongitude();
-        double storeLatitude = store.getY();
-        double storeLongitude = store.getX();
+        double storeLatitude = store.getLatitude();
+        double storeLongitude = store.getLongitude();
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
@@ -29,20 +29,19 @@ public class DistanceRequest{
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Réponse HTTP brute : " + response.body());
+            logger.info("Réponse HTTP brute : " + response.body());
 
-            // Parse le JSON pour récupérer la distance
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(response.body());
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
 
-            distanceRequestLog.info("TEST LOGGER");
-            System.out.println("Distance extraite : " + distance);
+            logger.info("TEST LOGGER");
+            logger.info("Distance extraite : " + distance);
             return distance;
 
         } catch (Exception e) {
-            System.out.println("Erreur lors de la requête HTTP : " + e.getMessage());
-            return -1; // Code d'erreur en cas d'échec
+            logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
+            return -1;
         }
     }
 
@@ -57,20 +56,19 @@ public class DistanceRequest{
         HttpResponse<String> response;
         try {
             response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            System.out.println("Réponse HTTP brute : " + response.body());
+            logger.info("Réponse HTTP brute : " + response.body());
 
-            // Parse le JSON pour récupérer la distance
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(response.body());
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
 
-            distanceRequestLog.info("TEST LOGGER");
-            System.out.println("Distance extraite : " + distance);
+            logger.info("TEST LOGGER");
+            logger.info("Distance extraite : " + distance);
             return distance;
 
         } catch (Exception e) {
-            System.out.println("Erreur lors de la requête HTTP : " + e.getMessage());
-            return -1; // Code d'erreur en cas d'échec
+            logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
+            return -1;
         }
     }
 }
