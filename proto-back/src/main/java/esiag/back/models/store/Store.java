@@ -7,97 +7,33 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "Store")
+@Table(name = "store")
 public class Store{
-    @Id
-    @Column(name="StoreId")
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int storeId;
 
-    @Column(name = "Name")
+    @Id
+    @Column(name="store_id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer storeId;
+
+    @Column(name = "name")
     private String name;
 
-    @Column(name = "StreetNumber")
-    private int streetNumber;
+    @Column(name = "street_number")
+    private Integer streetNumber;
 
-    @Column(name = "Street")
+    @Column(name = "street")
     private String street;
 
-    @Column(name = "ZipCode")
-    private int zipCode;
+    @Column(name = "zipcode")
+    private Integer zipCode;
 
-    @Column(name = "City")
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "x")
-    private int x;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @Column(name = "y")
-    private int y;
+    @Column(name = "longitude")
+    private Double longitude;
 
-    //Constructeur sans paramètres :
-    public Store(){
-
-    }
-
-    //Accesseurs :
-    public int getStoreId() {
-        return storeId;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getStreetNumber() {
-        return streetNumber;
-    }
-
-    public void setStreetNumber(int streetNumber) {
-        this.streetNumber = streetNumber;
-    }
-
-    public String getStreet() {
-        return street;
-    }
-
-    public void setStreet(String street) {
-        this.street = street;
-    }
-
-    public int getZipCode() {
-        return zipCode;
-    }
-
-    public void setZipCode(int zipCode) {
-        this.zipCode = zipCode;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
-    }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
 }
