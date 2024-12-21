@@ -8,38 +8,38 @@ import java.time.LocalDate;
 
 @Entity
 @Data
-@Table(name = "Customer")
+@Table(name = "customer")
 public class Customer {
 
     @Id
-    @Column(name = "CustomerId")
+    @Column(name = "customer_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long customerId;
 
-    @Column(name = "Lastname")
+    @Column(name = "lastname")
     private String lastname;
 
-    @Column(name = "Firstname")
+    @Column(name = "firstname")
     private String firstname;
 
-    @Column(name = "Birthdate")
+    @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "StreetNumber")
+    @Column(name = "street_number")
     private Integer streetNumber;
 
-    @Column(name = "Street")
+    @Column(name = "street")
     private String street;
 
-    @Column(name = "ZipCode")
+    @Column(name = "zipcode")
     private Integer zipCode;
 
-    @Column(name = "City")
+    @Column(name = "city")
     private String city;
 
-    @Column(name = "x")
-    private Double x;
+    @Column(name = "latitude")
+    private Double latitude;
 
-    @Column(name = "y")
-    private Double y;
+    @Column(name = "longitude")
+    private Double longitude;
 }

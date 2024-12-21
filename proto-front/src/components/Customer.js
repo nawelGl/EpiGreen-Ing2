@@ -6,9 +6,7 @@ export default function Customer() {
     const [customers, setCustomers] = useState([]);
 
     const setCustomerData = async () => {
-        console.log("@@@@@@@@@@@@@@@@@@@@ TESTO TESTO @@@@@@@@@@@@@@@@@@@");
         axios.get(GET_CUSTOMERS).then((response) => {
-            console.log("@@@@@@@@@@@@@@@@@@@@ RÉPONSE : ", response.data);
             setCustomers(response.data);
         }).catch(error => {
             alert("Error occurred while loading customers: " + error);

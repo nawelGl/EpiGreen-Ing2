@@ -16,8 +16,8 @@ import org.apache.logging.log4j.Logger;
 public class DistanceRequest{
     protected static Logger distanceRequestLog= LogManager.getLogger(DistanceRequest.class);
     public static float getDistanceFromApi(Customer customer, Store store){
-        double customerLatitude = customer.getY();
-        double customerLongitude = customer.getX();
+        double customerLatitude = customer.getLatitude();
+        double customerLongitude = customer.getLongitude();
         double storeLatitude = store.getY();
         double storeLongitude = store.getX();
 
