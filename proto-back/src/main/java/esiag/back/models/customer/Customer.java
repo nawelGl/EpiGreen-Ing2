@@ -1,6 +1,7 @@
 package esiag.back.models.customer;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.time.LocalDate;

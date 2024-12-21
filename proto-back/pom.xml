@@ -15,9 +15,9 @@
   <name>proto-back</name>
   <description>Back side of the proto project</description>
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
-    <java.version>17</java.version>
+    <java.version>21</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.test.skip>true</maven.test.skip>
     <main.class>esiag.back.EsiagBackApplication</main.class>
   </properties>
@@ -74,7 +74,7 @@
       <version>2.14.2</version>
     </dependency>
 
-    <!--Ajout de la dépendance log4j (core et API) pour les logs-->
+    <!--Ajout de la dépendance log4j pour les logs-->
     <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
     <dependency>
       <groupId>org.apache.logging.log4j</groupId>
