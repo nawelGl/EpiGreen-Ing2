@@ -14,7 +14,7 @@ public class StoreService{
     @Autowired
     private StoreRepository storeRepository;
 
-    public Store findByIdCustomer(Long storeId) {
+    public Store findByIdStore(Long storeId) {
         Optional<Store> optionalStore = storeRepository.findById(storeId);
         return optionalStore.orElse(null);
     }

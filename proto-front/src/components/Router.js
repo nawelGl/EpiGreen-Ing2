@@ -6,6 +6,7 @@ import DemoLivraison from "./DemoLivraison";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import Customer from "./Customer";
+import Store from "./Store";
 
 export default function Router () {
     return (
@@ -16,6 +17,7 @@ export default function Router () {
                     <Route path="/" element={<App />}/>
                     <Route path="/sample" element={<Sample />}/>
                     <Route path="/customer" element={<Customer />}/>
+                    <Route path="/store" element={<Store />}/>
                     <Route path="/demoLivraison" element={<DemoLivraison />}/>
                     <Route path="*" element={<NotFound />}/>
                 </Routes>
