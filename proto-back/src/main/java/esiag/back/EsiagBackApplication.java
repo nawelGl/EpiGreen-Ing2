@@ -1,7 +1,6 @@
 package esiag.back;
 
-import esiag.back.controllers.httpRequests.DistanceRequest;
-
+import esiag.back.services.httpRequests.DistanceRequest;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
