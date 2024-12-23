@@ -40,15 +40,16 @@ public class DistanceRequest{
             ObjectMapper objectMapper = new ObjectMapper();
             JsonNode rootNode = objectMapper.readTree(response.body());
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
+            float distanceEnKm = distance / 1000;
 
-            logger.info("TEST LOGGER");
-            logger.info("Distance extraite : " + distance);
+            logger.info("Distance extraite (m) : " + distance);
+            logger.info("Distance extraite (km) : " + distanceEnKm);
 
             if (response.statusCode() != 200) {
                 logger.warn("Erreur API : Code " + response.statusCode());
                 return -1;
             }
-            return distance;
+            return distanceEnKm;
 
         } catch (Exception e) {
             logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
@@ -57,34 +58,34 @@ public class DistanceRequest{
     }
 
 
-
-    public static float getDistanceFromApiTest(double customerLatitude, double customerLongitude, double storeLatitude, double storeLongitude){
-        HttpClient client = HttpClient.newHttpClient();
-        HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + customerLatitude + "," + customerLongitude + ";" + storeLatitude + "," + storeLongitude +"?overview=false&access-token=FUxkMYNp2rg3hG6JZc11POCUWUdzyLX8AXzrtcl1gilV2XMvf0BtFEOoPTtL8ZCJ"))
-                .build();
-
-        HttpResponse<String> response;
-        try {
-            response = client.send(request, HttpResponse.BodyHandlers.ofString());
-            logger.info("Réponse HTTP brute : " + response.body());
-
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(response.body());
-            float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
-
-            logger.info("TEST LOGGER");
-            logger.info("Distance extraite : " + distance);
-
-            if (response.statusCode() != 200) {
-                logger.warn("Erreur API : Code " + response.statusCode());
-                return -1;
-            }
-            return distance;
-
-        } catch (Exception e) {
-            logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
-            return -1;
-        }
-    }
+    //Test avant d'implémenter les requêtes
+//    public static float getDistanceFromApiTest(double customerLatitude, double customerLongitude, double storeLatitude, double storeLongitude){
+//        HttpClient client = HttpClient.newHttpClient();
+//        HttpRequest request = HttpRequest.newBuilder()
+//                .uri(URI.create(BASE_URL + customerLatitude + "," + customerLongitude + ";" + storeLatitude + "," + storeLongitude +"?overview=false&access-token=FUxkMYNp2rg3hG6JZc11POCUWUdzyLX8AXzrtcl1gilV2XMvf0BtFEOoPTtL8ZCJ"))
+//                .build();
+//
+//        HttpResponse<String> response;
+//        try {
+//            response = client.send(request, HttpResponse.BodyHandlers.ofString());
+//            logger.info("Réponse HTTP brute : " + response.body());
+//
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            JsonNode rootNode = objectMapper.readTree(response.body());
+//            float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
+//
+//            logger.info("TEST LOGGER");
+//            logger.info("Distance extraite : " + distance);
+//
+//            if (response.statusCode() != 200) {
+//                logger.warn("Erreur API : Code " + response.statusCode());
+//                return -1;
+//            }
+//            return distance;
+//
+//        } catch (Exception e) {
+//            logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
+//            return -1;
+//        }
+//    }
 }

@@ -42,7 +42,7 @@ const DemoLivraison = () => {
             <button onClick={calculateDistance}>Calculer Distance</button>
             {distance !== null && (
                 <div>
-                    <br/><p><strong>Distance calculée : {distance} mètres</strong></p>
+                    <br/><p><strong>Distance calculée : {distance} km</strong></p>
                 </div>
             )}
         </div>
