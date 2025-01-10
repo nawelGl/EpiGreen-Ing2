@@ -1,7 +1,7 @@
 package esiag.back.controllers.search;
 
-import esiag.back.models.sample.Product;
-import esiag.back.services.sample.ProductService;
+import esiag.back.models.product.Product;
+import esiag.back.services.search.SearchService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -11,12 +11,15 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/search")
+@RequestMapping("api")
 public class SearchController {
+    @Autowired
+    private SearchService searchService;
 
-    @GetMapping
+
+    @PostMapping("/similarity-search")
     public ResponseEntity<List<Product>> searchProducts(@RequestParam String keywords) {
-        List<Product> results = productService.searchByKeywords(keywords);
+        List<Product> results = searchService.findSimilarProducts(keywords);
         return ResponseEntity.ok(results);
     }
 }

@@ -2,19 +2,24 @@ package esiag.back.services.search;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import esiag.back.models.sample.Product;
-import esiag.back.models.sample.ProductType;
-import esiag.back.repositories.sample.ProductRepository;
+import esiag.back.models.product.Product;
+import esiag.back.repositories.product.ProductRepository;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 @Service
-public class SimilarityService {
+public class SearchService {
 
+    // todo: set logger
     @Autowired
     private ProductRepository productRepository;
 
+    private static final Logger LOGGER = Logger.getLogger( SearchService.class.getName() );
+
     public List<Product> findSimilarProducts(String keywords) {
+
+        LOGGER.info("keywords:"+keywords);
         List<Product> products = productRepository.findAll(); // Charger tous les produits
         List<String> keywordList = List.of(keywords.toLowerCase().split(" ")); // Diviser les mots-clés
 
@@ -35,44 +40,45 @@ public class SimilarityService {
         double score = 0;
         double totalWeight = 100;
 
-        // Pondérations
-        int nameWeight = 40;
-        int descriptionWeight = 30;
-        int categoryWeight = 20;
-        int colorWeight = 10;
+        // Pondérations de poids
+        int sectionWeight = 20;
+        int categoryWeight = 30;
+        int colorWeight = 30;
+        int materialWeight = 20;
 
-        // Comparaison avec le nom
-        String name = product.getName().toLowerCase();
+
+        // comparaison avec la section (homme/femme/enfant)
+        String section = product.getSection().toLowerCase();
         for (String keyword : keywords) {
-            if (name.contains(keyword)) {
-                score += nameWeight / (double) keywords.size();
+            if (section.contains(keyword)) {
+                score += sectionWeight;
             }
         }
-
-        // Comparaison avec la description
-        String description = product.getDescription().toLowerCase();
-        for (String keyword : keywords) {
-            if (description.contains(keyword)) {
-                score += descriptionWeight / (double) keywords.size();
-            }
-        }
-
-        // Comparaison avec la catégorie
+        // comparaison pour la catérogie
         String category = product.getCategory().toLowerCase();
         for (String keyword : keywords) {
             if (category.contains(keyword)) {
-                score += categoryWeight / (double) keywords.size();
+                score += categoryWeight;
             }
         }
 
-        // Comparaison avec la couleur
+            // Comparaison avec la couleur
         String color = product.getColor().toLowerCase();
         for (String keyword : keywords) {
             if (color.contains(keyword)) {
-                score += colorWeight / (double) keywords.size();
+                score += colorWeight;
+            }
+        }
+            // Comparaison avec la section
+        String material = product.getMaterial().toLowerCase();
+        for (String keyword : keywords) {
+            if (material.contains(keyword)) {
+                score += materialWeight;
             }
         }
 
-        return (score / totalWeight) * 100;
-    }
+            return (score / totalWeight) * 100;
+        }
+
 }
+
