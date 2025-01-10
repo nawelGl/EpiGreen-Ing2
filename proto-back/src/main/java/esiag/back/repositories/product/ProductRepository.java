@@ -8,7 +8,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
-    // méthode particulier
-    //@Query("SELECT Section, Size, Color, Material FROM Product")
-    //List<Product> findAllProduct();
+
+    @Query("SELECT category,section,size,color,material,price FROM Product")
+    Product findProductById();
 }
