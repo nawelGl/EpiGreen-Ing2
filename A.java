@@ -1,7 +1,16 @@
 pipeline {
     agent any
+    triggers {
+        cron('H/5 * * * *') // Exécuter toutes les 5 minutes
+    }
     stages {
         stage('Build Backend') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'dev'
+                }
+            }
             steps {
                 dir('proto-back') {
                     echo "Building backend for branch: ${env.BRANCH_NAME}"
@@ -10,6 +19,12 @@ pipeline {
             }
         }
         stage('Deploy Backend') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'dev'
+                }
+            }
             steps {
                 script {
                     def targetVM = (env.BRANCH_NAME == 'main') ? 'back-prod@172.31.252.73' : 'toto@172.31.249.34'
@@ -22,6 +37,12 @@ pipeline {
             }
         }
         stage('Build Frontend') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'dev'
+                }
+            }
             steps {
                 dir('proto-front') {
                     echo "Building frontend for branch: ${env.BRANCH_NAME}"
@@ -31,6 +52,12 @@ pipeline {
             }
         }
         stage('Deploy Frontend') {
+            when {
+                anyOf {
+                    branch 'main'
+                    branch 'dev'
+                }
+            }
             steps {
                 script {
                     def targetVM = (env.BRANCH_NAME == 'main') ? 'front-prod@172.31.249.252' : 'toto@172.31.249.34'
