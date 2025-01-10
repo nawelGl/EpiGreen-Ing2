@@ -19,8 +19,8 @@ pipeline {
 
                             sh """
                                 echo 'Transferring backend JAR to the server...'
-                                sshpass -p '${userPassword}' scp -o StrictHostKeyChecking=no proto-back/target/*.jar ${targetVM}:deploy/backend/
-                                sshpass -p '${userPassword}' ssh -o StrictHostKeyChecking=no ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
+                                sshpass -p '${userPassword}' scp -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null proto-back/target/*.jar ${targetVM}:deploy/backend/
+                                sshpass -p '${userPassword}' ssh -o StrictHostKeyChecking=no -o UserKnownHostsFile=/dev/null ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
                             """
                         }
                     }
