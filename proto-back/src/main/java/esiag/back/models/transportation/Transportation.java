@@ -20,7 +20,13 @@ public class Transportation {
     @Column(name = "transportation_type")
     private TransportationType transportationType;
 
-    @Column(name = "emission_factor")
-    private Float emissionFactor;
+    @Column(name = "kg_co2")
+    private Float kgCo2;
 
+    @Column(name = "tons")
+    private Float tons;
+
+    @Enumerated(EnumType.STRING)
+    @Column(name = "motorisation")
+    private TransportationMotorisationType motorisation;
 }
