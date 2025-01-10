@@ -15,8 +15,8 @@ pipeline {
                     def targetVM = 'toto@172.31.249.34'
                     echo "Deploying backend to ${targetVM}"
                     sh """
-                        scp -o StrictHostKeyChecking=no proto-back/target/*.jar ${targetVM}:deploy/backend/
-                        ssh -o StrictHostKeyChecking=no ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
+                        scp proto-back/target/*.jar ${targetVM}:deploy/backend/
+                        ssh ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
                     """
                 }
             }
