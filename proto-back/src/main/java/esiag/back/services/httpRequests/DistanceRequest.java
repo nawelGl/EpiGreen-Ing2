@@ -43,6 +43,10 @@ public class DistanceRequest{
             float distance = (float) rootNode.get("routes").get(0).get("distance").asDouble();
             float distanceEnKm = distance / 1000;
 
+            logger.info("Latitude de départ : " + startLatitude);
+            logger.info("Longitude de départ : " + startLongitude);
+            logger.info("Latitude d'arrivée : " + endLatitude);
+            logger.info("Longitude d'arrivée : " + endLongitude);
             logger.info("Distance extraite (m) : " + distance);
             logger.info("Distance extraite (km) : " + distanceEnKm);
 
