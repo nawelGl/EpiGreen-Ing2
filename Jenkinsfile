@@ -10,16 +10,23 @@ pipeline {
             }
         }
         stage('Deploy Backend') {
-            steps {
-                script {
-                    def targetVM = 'toto@172.31.249.34'
-                    echo "Deploying backend to ${targetVM}"
-                    sh """
-                        scp proto-back/target/*.jar ${targetVM}:deploy/backend/
-                        ssh ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
-                    """
-                }
-            }
+                    steps {
+                        script {
+                            def targetVM = '172.31.249.34'  // L'adresse IP de la VM cible
+                            def credentials = credentials('toto')  // Récupère le credential
+
+                            def username = credentials.username   // Récupère le nom d'utilisateur
+                            def password = credentials.password   // Récupère le mot de passe
+        
+                            echo "Deploying backend to ${username}@${targetVM}"
+
+                            sh """
+                                echo 'Transferring backend JAR to the server...'
+                                sshpass -p '${password}' scp -o StrictHostKeyChecking=no proto-back/target/*.jar ${username}@${targetVM}:deploy/backend/
+                                sshpass -p '${password}' ssh -o StrictHostKeyChecking=no ${username}@${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
+                            """
+                        }
+                    }
         }
         stage('Build Frontend') {
             steps {
