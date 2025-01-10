@@ -14,7 +14,7 @@ export default function Search() {
 
     const handleKeyPress = (e) => {
         if (e.key === 'Enter') {
-            handleSearch(); // Appeler la recherche si la touche "Enter" est pressée
+            handleSearch();
         }
     };
 
