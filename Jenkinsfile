@@ -5,7 +5,7 @@ pipeline {
             steps {
                 dir('proto-back') {
                     echo "Building backend for branch: ${env.BRANCH_NAME}"
-                    sh './mvnw clean package' // Commande Maven pour générer le .jar
+                    sh './mvn clean package' // Commande Maven pour générer le .jar
                 }
             }
         }
