@@ -12,7 +12,7 @@ pipeline {
         stage('Deploy Backend') {
             steps {
                 script {
-                    def targetVM = (env.BRANCH_NAME == 'main') ? 'back-prod@172.31.252.73' : 'toto@172.31.249.34'
+                    def targetVM = 'back-prod@172.31.252.73'
                     echo "Deploying backend to ${targetVM}"
                     sh """
                         scp proto-back/target/*.jar ${targetVM}:deploy/backend/
@@ -33,7 +33,7 @@ pipeline {
         stage('Deploy Frontend') {
             steps {
                 script {
-                    def targetVM = (env.BRANCH_NAME == 'main') ? 'front-prod@172.31.249.252' : 'toto@172.31.249.34'
+                    def targetVM = 'front-prod@172.31.249.252'
                     echo "Deploying frontend to ${targetVM}"
                     sh """
                         scp -r proto-front/build/* ${targetVM}:deploy/frontend-build/
