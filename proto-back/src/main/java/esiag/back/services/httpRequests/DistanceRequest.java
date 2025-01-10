@@ -1,5 +1,6 @@
 package esiag.back.services.httpRequests;
 
+import esiag.back.models.address.Address;
 import esiag.back.models.customer.Customer;
 import esiag.back.models.store.Store;
 import java.net.URI;
@@ -21,15 +22,15 @@ public class DistanceRequest{
     @Value("${jawg.api.token}")
     private static String apiToken;
 
-    public static float getDistanceFromApi(Customer customer, Store store){
-        double customerLatitude = customer.getLatitude();
-        double customerLongitude = customer.getLongitude();
-        double storeLatitude = store.getLatitude();
-        double storeLongitude = store.getLongitude();
+    public static float getDistanceFromApi(Address startAddress, Address endAddress){
+        double startLatitude = startAddress.getLatitude();
+        double startLongitude = startAddress.getLongitude();
+        double endLatitude = endAddress.getLatitude();
+        double endLongitude = endAddress.getLongitude();
 
         HttpClient client = HttpClient.newHttpClient();
         HttpRequest request = HttpRequest.newBuilder()
-                .uri(URI.create(BASE_URL + customerLatitude + "," + customerLongitude + ";" + storeLatitude + "," + storeLongitude +"?overview=false&access-token=FUxkMYNp2rg3hG6JZc11POCUWUdzyLX8AXzrtcl1gilV2XMvf0BtFEOoPTtL8ZCJ"))
+                .uri(URI.create(BASE_URL + startLatitude + "," + startLongitude + ";" + endLatitude + "," + endLongitude +"?overview=false&access-token=FUxkMYNp2rg3hG6JZc11POCUWUdzyLX8AXzrtcl1gilV2XMvf0BtFEOoPTtL8ZCJ"))
                 .build();
 
         HttpResponse<String> response;

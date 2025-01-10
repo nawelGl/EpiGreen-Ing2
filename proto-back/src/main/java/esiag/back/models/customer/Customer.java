@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import esiag.back.models.address.Address;
 
 @Entity
 @Data
@@ -24,21 +25,7 @@ public class Customer {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "street_number")
-    private Integer streetNumber;
-
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "zipcode")
-    private Integer zipCode;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "latitude")
-    private Double latitude;
-
-    @Column(name = "longitude")
-    private Double longitude;
+    @ManyToOne
+    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
+    private Address address;
 }

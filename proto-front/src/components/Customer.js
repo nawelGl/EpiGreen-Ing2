@@ -18,6 +18,7 @@ export default function Customer() {
     }, []);
 
     if (customers.length === 0) return <div className="container text-center">No customers</div>;
+    console.log(customers);
 
     return (
         <div className="container text-center">
@@ -39,7 +40,10 @@ export default function Customer() {
                                 <th scope="row">{customer.customerId}</th>
                                 <td>{customer.lastname}</td>
                                 <td>{customer.firstname}</td>
-                                <td>{customer.streetNumber + " " + customer.street + ", " + customer.zipCode + " " + customer.city}</td>
+                                <td>
+                                    {customer.address.streetNumber} {customer.address.street},
+                                    {customer.address.zipCode} {customer.address.city}
+                                </td>
                             </tr>
                         ))
                     }

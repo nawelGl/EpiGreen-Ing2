@@ -23,6 +23,6 @@ public class DistanceService {
         Store store = storeRepository.findById(storeId)
                 .orElseThrow(() -> new RuntimeException("Magasin non trouvé"));
 
-        return DistanceRequest.getDistanceFromApi(customer, store);
+        return DistanceRequest.getDistanceFromApi(customer.getAddress(), store.getAddress());
     }
 }
