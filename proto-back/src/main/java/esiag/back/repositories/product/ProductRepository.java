@@ -9,6 +9,6 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
-    @Query("SELECT category,section,size,color,material,price FROM Product")
-    Product findProductById();
+    @Query("SELECT p FROM Product p WHERE p.id = :id")
+    Product findProductById(@Param("id") Long id);
 }
