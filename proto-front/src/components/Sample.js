@@ -9,7 +9,7 @@ export default function Sample() {
     dateSample: '',
     stringSample: '',
     floatSample: '',
-    sampleType: 'SAMPLE_TYPE1' // Exemple de valeur par défSampleLiaut
+    sampleType: 'SAMPLE_TYPE1'
   });
   const [isAdding, setIsAdding] = useState(false);
 
