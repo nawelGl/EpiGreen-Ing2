@@ -1,8 +1,6 @@
 # EpiGreen-Ing2
 
-# EpiGreen
-
-## (Objet du projet en une phrase)
+## Nous proposons des vêtements plus écologiques pour encourager des habitudes de consommation respectueuses de l'environnement via le site web
 
 ### Liste des étudiants
 - Étudiant  : (Shin, Seulgi)
