@@ -22,4 +22,9 @@ public class SearchController {
         List<Product> results = searchService.findSimilarProducts(keywords);
         return ResponseEntity.ok(results);
     }
+    @PostMapping("/similarityById")
+    public ResponseEntity<List<Product>> searchProducts(@RequestParam int product1,@RequestParam int product2) {
+        List<Product> results = searchService.findSimilarProducts(keywords);
+        return ResponseEntity.ok(results);
+    }
 }

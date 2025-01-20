@@ -5,6 +5,7 @@ import Sample from "./Sample";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import Search from "./Search";
+import Similarity from "./Similarity";
 
 export default function Router () {
     return (
@@ -16,6 +17,7 @@ export default function Router () {
                     <Route path="/sample" element={<Sample />}/>
                     <Route path="*" element={<NotFound />}/>
                     <Route path="/search" element={<Search />}/>
+                    <Route path="/similarity" element={<Similarity />}/>
                 </Routes>
             </div>
         </BrowserRouter>

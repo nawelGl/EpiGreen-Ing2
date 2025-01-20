@@ -13,6 +13,9 @@ export default function Navbar(){
             <li className="nav-item">
                 <Link className="nav-link" to="/search">Search</Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/similarity">Similarity</Link>
+            </li>
         </ul>
     );
 };
