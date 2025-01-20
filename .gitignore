@@ -31,3 +31,10 @@ target/
 *.class
 *.jar
 *.lst
+proto-front/node_modules/.cache/default-development/0.pack
+proto-front/node_modules/.cache/default-development/0.pack
+proto-front/node_modules/.cache/default-development/1.pack
+proto-front/node_modules/.cache/default-development/3.pack
+proto-front/node_modules/.cache/default-development/index.pack.old
+proto-front/node_modules/.cache/default-development/index.pack
+proto-front/node_modules/.cache/default-development/4.pack
