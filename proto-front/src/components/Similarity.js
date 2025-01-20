@@ -13,7 +13,7 @@ export default function Similarity() {
         console.log("Product id2: ",productId2);
         try {
             // Appel au backend avec les ID
-            const response = await axios.post('api/similarity-search', {
+            const response = await axios.post('api/similarityById', {
                 productId1: productId1,
                 productId2: productId2
             });

@@ -34,4 +34,59 @@ public class Product {
 
     @Column(name="price")
     private int price;
+
+
+    public Long getIdProduct() {
+        return idProduct;
+    }
+    public void SetIdProduct(Long idProduct) {
+        this.idProduct = idProduct;
+    }
+
+    public Integer getReference() {
+        return reference;
+    }
+    public void SetReference(Integer reference) {
+        this.reference = reference;
+    }
+    public String getSection() {
+        return section;
+    }
+
+    public void setSection(String section) {
+        this.section = section;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+    public void SetCategory(String category) {
+        this.category = category;
+    }
+    public String getSize() {
+        return size;
+    }
+    public void SetSize(String size) {
+        this.size = size;
+    }
+    public String getColor() {
+        return color;
+    }
+    public void SetColor(String color) {
+        this.color = color;
+    }
+
+    public String getMaterial() {
+        return material;
+    }
+    public void SetMaterial(String material) {
+        this.material = material;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+    public void SetPrice(int price) {
+        this.price = price;
+    }
 }
