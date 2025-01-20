@@ -1,6 +1,7 @@
 package esiag.back.models.sample;
 
 import lombok.Data;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -23,6 +24,7 @@ public class Sample {
 
     @Column(name = "float_sample")
     private Float floatSample;
+
 
     @Enumerated(EnumType.STRING)
     @Column(name = "sample_type")

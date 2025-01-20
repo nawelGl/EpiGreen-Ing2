@@ -15,9 +15,9 @@
   <name>proto-back</name>
   <description>Back side of the proto project</description>
   <properties>
-    <maven.compiler.source>17</maven.compiler.source>
-    <maven.compiler.target>17</maven.compiler.target>
     <java.version>17</java.version>
+    <maven.compiler.source>${java.version}</maven.compiler.source>
+    <maven.compiler.target>${java.version}</maven.compiler.target>
     <maven.test.skip>true</maven.test.skip>
     <main.class>esiag.back.EsiagBackApplication</main.class>
   </properties>
@@ -66,6 +66,21 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
+
+    <!--Ajout de la dépendance jackson : permet de lire du JSON, notamment pour les données de l'API -->
+    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
+    <dependency>
+      <groupId>com.fasterxml.jackson.core</groupId>
+      <artifactId>jackson-databind</artifactId>
+    </dependency>
+
+    <!--Ajout de la dépendance log4j pour les logs-->
+    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
+    <dependency>
+      <groupId>org.apache.logging.log4j</groupId>
+      <artifactId>log4j-core</artifactId>
+      <version>2.17.1</version>
+    </dependency>
   </dependencies>
 
   <!--Ajout du plugin exec:java-->
@@ -83,9 +98,39 @@
           </execution>
         </executions>
         <configuration>
-          <mainClass> ${main.class} </mainClass>
+          <mainClass>${main.class}</mainClass>
         </configuration>
       </plugin>
+
+
+          <plugin>
+            <groupId>org.apache.maven.plugins</groupId>
+            <artifactId>maven-jar-plugin</artifactId>
+            <version>3.3.0</version>
+            <configuration>
+              <archive>
+                <manifest>
+                  <mainClass>${main.class}</mainClass>
+                </manifest>
+              </archive>
+            </configuration>
+            <executions>
+              <execution>
+                <id>default-jar</id>
+                <phase>package</phase>
+                <goals>
+                  <goal>jar</goal>
+                </goals>
+              </execution>
+            </executions>
+          </plugin>
+
+          <!-- Plugin Spring Boot -->
+          <plugin>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-maven-plugin</artifactId>
+          </plugin>
+
     </plugins>
   </build>
 
