@@ -7,8 +7,12 @@ const DemoLivraison = () => {
     const [customerId, setCustomerId] = useState("");
     const [storeId, setStoreId] = useState("");
 
-    //Tester appel a la fonction qui calcule la distance entre deux points
 
+    //Params écrits en dur à changer
+    const fromWaypoint = [38.937165, -77.04559];
+    const toWaypoint = [39.881152, -76.990693];
+
+    const address = "17 avenue du 11 novembre 1918, 94400, Vitry-sur-Seine, France";
 
     const calculateDistance = async () => {
         try {
@@ -20,6 +24,11 @@ const DemoLivraison = () => {
         } catch (error) {
             console.error("Erreur lors du calcul de la distance : ", error);
         }
+    };
+
+    //créér un composant pour enregistrer les données de la fonction :
+    const callRoutingApi = async () => {
+
     };
 
     //Affichage
@@ -45,17 +54,15 @@ const DemoLivraison = () => {
             </div>
             <br/>
             <button onClick={calculateDistance}>Calculer Distance</button>
-            <br/>
-            <br/>
-            <button onClick={getResultFromRoutingApi}>Tester API Routing</button>
-            <br/>
-            <br/>
-            <button onClick={getResultFromGeocodingApi}>Tester API Geocoding</button>
             {distance !== null && (
                 <div>
                     <br/><p><strong>Distance calculée : {distance} km</strong></p>
                 </div>
             )}
+            <button onClick={getResultFromRoutingApi(fromWaypoint, toWaypoint)}>Tester API Routing</button>
+            <br/>
+            <br/>
+            <button onClick={getResultFromGeocodingApi(address)}>Tester API Geocoding</button>
         </div>
     );
 };

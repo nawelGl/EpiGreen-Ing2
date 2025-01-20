@@ -1,10 +1,8 @@
 package esiag.back.models.customer;
 
 import lombok.Data;
-
 import javax.persistence.*;
 import java.time.LocalDate;
-import esiag.back.models.address.Address;
 
 @Entity
 @Data
@@ -25,7 +23,6 @@ public class Customer {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
-    private Address address;
+    @Column(name = "address")
+    private String address;
 }

@@ -1,9 +1,6 @@
 package esiag.back.models.store;
 
-import esiag.back.models.address.Address;
 import lombok.Data;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 
 @Entity
@@ -19,7 +16,6 @@ public class Store{
     @Column(name = "name")
     private String name;
 
-    @ManyToOne
-    @JoinColumn(name = "address_id", referencedColumnName = "address_id", nullable = false)
-    private Address address;
+    @Column(name = "address")
+    private String address;
 }
