@@ -3,12 +3,9 @@
 ## Nous proposons des vêtements plus écologiques pour encourager des habitudes de consommation respectueuses de l'environnement via le site web
 
 ### Liste des étudiants
-- Étudiant  : (Shin, Seulgi)
-  - US1 : (Description de la User Story 1)
-  - US2 : (Description de la User Story 2)
+- Étudiant 1 : (Shin, Seulgi)
+  - US1 : Algorithme du moteur de recherche
 - Étudiant 2 : (Ghazal, Nawel)
-  - US1 : (Description de la User Story 1)
-  - US2 : (Description de la User Story 2)
+  - US1 : Calcul de l'empreinte carbone des différents modes de livraison
 - Étudiant 3 : (Haj Abouda, Nawres)
-  - US1 : (Description de la User Story 1)
-  - US2 : (Description de la User Story 2)
+  - US1 : Algorithme qui calcule l'empreinte carbone des trajets de la fabrication d'un produit
