@@ -12,7 +12,7 @@ pipeline {
                 }
             }
             steps {
-                dir('epigreen-back') {
+                dir('proto-back') {
                     echo "Building backend for branch: ${env.BRANCH_NAME}"
                     sh './mvnw clean package' // Commande Maven pour générer le .jar
                 }
@@ -30,7 +30,7 @@ pipeline {
                     def targetVM = (env.BRANCH_NAME == 'main') ? 'back-prod@172.31.252.73' : 'toto@172.31.249.34'
                     echo "Deploying backend to ${targetVM}"
                     sh """
-                        scp epigreen-back/target/*.jar ${targetVM}:deploy/backend/
+                        scp proto-back/target/*.jar ${targetVM}:deploy/backend/
                         ssh ${targetVM} 'cd deploy/backend && nohup java -jar *.jar &'
                     """
                 }
@@ -44,7 +44,7 @@ pipeline {
                 }
             }
             steps {
-                dir('epigreen-front') {
+                dir('proto-front') {
                     echo "Building frontend for branch: ${env.BRANCH_NAME}"
                     sh 'npm install' // Installer les dépendances
                     sh 'npm run build' // Générer le dossier build
@@ -63,7 +63,7 @@ pipeline {
                     def targetVM = (env.BRANCH_NAME == 'main') ? 'front-prod@172.31.249.252' : 'toto@172.31.249.34'
                     echo "Deploying frontend to ${targetVM}"
                     sh """
-                        scp -r epigreen-front/build/* ${targetVM}:deploy/frontend-build/
+                        scp -r proto-front/build/* ${targetVM}:deploy/frontend-build/
                     """
                 }
             }
