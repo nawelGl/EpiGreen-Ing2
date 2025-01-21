@@ -26,8 +26,9 @@ public class SearchController {
         return ResponseEntity.ok(results);
     }
     @PostMapping("/similarityById")
-    public ResponseEntity<Double> searchProducts(@RequestParam int product1,@RequestParam int product2) {
-        double result = similarityService.calculateProductSimilarity(product1,product2);
+    public ResponseEntity<Double> searchProducts(@RequestParam("productId1") int productId1,@RequestParam("productId2") int productId2) {
+        System.out.println("Product ID 1: " + productId1 + ", Product ID 2: " + productId2);
+        double result = similarityService.calculateProductSimilarity(productId1,productId2);
         return ResponseEntity.ok(result);
     }
 }

@@ -15,7 +15,7 @@ public class SimilarityService {
 
     private static final Logger LOGGER = Logger.getLogger(SimilarityService.class.getName());
 
-    public double calculateProductSimilarity(int product_id1, int product_id2) {
+    public double calculateProductSimilarity(int productId1, int productId2) {
         double score = 0;
         double totalWeight = 100;
 
@@ -27,8 +27,8 @@ public class SimilarityService {
         int priceWeight = 10;
 
         // Retrieve products from the database
-        Product product1 = productRepository.findProductById((long) product_id1);
-        Product product2 = productRepository.findProductById((long) product_id2);
+        Product product1 = productRepository.findProductById((long) productId1);
+        Product product2 = productRepository.findProductById((long) productId2);
 
         if (product1 == null || product2 == null) {
             LOGGER.warning("One or both products not found in the database.");
