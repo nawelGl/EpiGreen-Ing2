@@ -40,10 +40,7 @@ export default function Customer() {
                                 <th scope="row">{customer.customerId}</th>
                                 <td>{customer.lastname}</td>
                                 <td>{customer.firstname}</td>
-                                <td>
-                                    {customer.address.streetNumber} {customer.address.street},
-                                    {customer.address.zipCode} {customer.address.city}
-                                </td>
+                                <td>{customer.address}</td>
                             </tr>
                         ))
                     }

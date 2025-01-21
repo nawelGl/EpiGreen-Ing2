@@ -37,7 +37,7 @@ export default function Store(){
                             <tr key={index}>
                                 <th scope="row">{store.storeId}</th>
                                 <td>{store.name}</td>
-                                <td>{store.address.streetNumber + " " + store.address.street + ", " + store.address.zipCode + " " + store.address.city}</td>
+                                <td>{store.address}</td>
                             </tr>
                         ))
                     }

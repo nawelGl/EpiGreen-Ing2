@@ -1,12 +1,12 @@
-import React, {useEffect, useState} from 'react';
-import axios from 'axios';
+import React, { useState} from 'react';
 import { getResultFromRoutingApi, getResultFromGeocodingApi } from "../api/Geoapify";
 
 const DemoLivraison = () => {
     const [distance, setDistance] = useState(null);
     const [customerId, setCustomerId] = useState("");
     const [storeId, setStoreId] = useState("");
-
+    const [routeData, setRouteData] = useState(null);
+    const [geocodeData, setGeocodeData] = useState(null);
 
     //Params écrits en dur à changer
     const fromWaypoint = [38.937165, -77.04559];
@@ -14,27 +14,35 @@ const DemoLivraison = () => {
 
     const address = "17 avenue du 11 novembre 1918, 94400, Vitry-sur-Seine, France";
 
-    const calculateDistance = async () => {
+    // Function to call the routage API
+    const callRoutingApi = async () => {
         try {
-            const response = await axios.post('http://localhost:8080/api/calculate-distance', {
-                customerId: parseInt(customerId),
-                storeId: parseInt(storeId),
-            });
-            setDistance(response.data);
+            const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
+            const distance = response.features[0]?.properties.distance / 1000;
+            setDistance(distance);
+            setRouteData(response);
         } catch (error) {
-            console.error("Erreur lors du calcul de la distance : ", error);
+            console.error("Erreur lors de l'appel à l'API de routage : ", error);
         }
     };
 
-    //créér un composant pour enregistrer les données de la fonction :
-    const callRoutingApi = async () => {
-
+    // Function to call the geocoding API
+    const callGeocodingApi = async () => {
+        try {
+            const response = await getResultFromGeocodingApi(address);
+            const lat = response.features[0]?.properties.lat;
+            const lon = response.features[0]?.properties.lon;
+            setGeocodeData({ lat, lon });
+        } catch (error) {
+            console.error("Erreur lors de l'appel à l'API de géocodage : ", error);
+        }
     };
 
-    //Affichage
+
+    // Display
     return (
         <div className="container">
-            <h2>Démo Livraison</h2><br/>
+            <h2>Démo Livraison</h2><br />
             <div>
                 <label>Client ID : </label>
                 <input
@@ -43,7 +51,7 @@ const DemoLivraison = () => {
                     onChange={(e) => setCustomerId(e.target.value)}
                 />
             </div>
-            <br/>
+            <br />
             <div>
                 <label>Magasin ID : </label>
                 <input
@@ -52,17 +60,22 @@ const DemoLivraison = () => {
                     onChange={(e) => setStoreId(e.target.value)}
                 />
             </div>
-            <br/>
-            <button onClick={calculateDistance}>Calculer Distance</button>
-            {distance !== null && (
+            <br />
+            <button onClick={callGeocodingApi}>Tester API Geocoding</button>
+            {geocodeData && (
                 <div>
-                    <br/><p><strong>Distance calculée : {distance} km</strong></p>
+                    <p><strong>Latitude : </strong>{geocodeData.lat}</p>
+                    <p><strong>Longitude : </strong>{geocodeData.lon}</p>
                 </div>
             )}
-            <button onClick={getResultFromRoutingApi(fromWaypoint, toWaypoint)}>Tester API Routing</button>
-            <br/>
-            <br/>
-            <button onClick={getResultFromGeocodingApi(address)}>Tester API Geocoding</button>
+            <br />
+            <button onClick={callRoutingApi}>Tester API Routing</button>
+            {distance !== null && (
+                <div>
+                    <p><strong>Distance calculée : {distance} km</strong></p>
+                </div>
+            )}
+            <br />
         </div>
     );
 };
