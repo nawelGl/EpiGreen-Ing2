@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 import javax.persistence.*;
 import java.util.Date;
 
+//model on definit des entitys metier ===> par le dcm
 @Entity
 @Data
 @Table(name = "sample")
