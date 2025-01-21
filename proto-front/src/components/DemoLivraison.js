@@ -2,7 +2,7 @@ import React, { useState} from 'react';
 import { getResultFromRoutingApi, getResultFromGeocodingApi } from "../api/Geoapify";
 import { getCustomerById } from "../components/Customer";
 import { getStoreById } from "../components/Store";
-
+//TODO : régler problème sur les paramètres de l'API routing !
 const DemoLivraison = () => {
     const [distance, setDistance] = useState(null);
     const [customerId, setCustomerId] = useState("");
@@ -18,10 +18,6 @@ const DemoLivraison = () => {
         latitude: '',
         longitude: ''
     });
-
-    //Params écrits en dur à changer
-    const fromWaypoint = [38.937165, -77.04559];
-    const toWaypoint = [39.881152, -76.990693];
 
     // Function to fetch customer data
     const fetchCustomerData = async () => {
@@ -39,17 +35,6 @@ const DemoLivraison = () => {
         }
     };
 
-    // Function to call the routage API
-    const callRoutingApi = async () => {
-        try {
-            const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
-            const distance = response.features[0]?.properties.distance / 1000;
-            setDistance(distance);
-            setRouteData(response);
-        } catch (error) {
-            console.error("Erreur lors de l'appel à l'API de routage : ", error);
-        }
-    };
 
     // Function to call the geocoding API for the customer
     const fetchCustomerCoordinates = async () => {
@@ -89,6 +74,23 @@ const DemoLivraison = () => {
         }
     };
 
+
+    // Function to call the routage API
+    const callRoutingApi = async () => {
+        try {
+            // Convertir les objets en tableaux [latitude, longitude]
+            const fromWaypoint = [customerCoordinates.latitude, customerCoordinates.longitude];
+            const toWaypoint = [storeCoordinates.latitude, storeCoordinates.longitude];
+
+            // Appeler l'API avec ces tableaux
+            const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
+            const distance = response.features[0]?.properties.distance / 1000;
+            setDistance(distance);
+            setRouteData(response);
+        } catch (error) {
+            console.error("Erreur lors de l'appel à l'API de routage : ", error);
+        }
+    };
 
 
     // Display
@@ -158,6 +160,21 @@ const DemoLivraison = () => {
                             <p><strong>Latitude : </strong>{storeCoordinates.latitude}</p>
                             <p><strong>Longitude : </strong>{storeCoordinates.longitude}</p>
                         </div>
+                    )}
+                </>
+            )}
+            {customerCoordinates && storeCoordinates && (
+                <>
+                    <button onClick={getResultFromRoutingApi}>
+                        Récupérer distance client - magasin
+                    </button>
+                    {distance && (
+                        <>
+                            <div>
+                                <p><strong>Distance : </strong>{distance}<strong> km.</strong></p>
+                            </div>
+
+                        </>
                     )}
                 </>
             )}
