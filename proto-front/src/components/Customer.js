@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { GET_CUSTOMERS } from "../constants/back";
+import {GET_CUSTOMERS, LOCAL_HOST_CUSTOMER} from "../constants/back";
+
+export const getCustomerById = async (customerId) => {
+    try {
+        const response = await axios.get(LOCAL_HOST_CUSTOMER + customerId);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la récupération du client : ", error);
+        return null;
+    }
+};
 
 export default function Customer() {
     const [customers, setCustomers] = useState([]);

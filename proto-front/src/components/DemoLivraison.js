@@ -1,5 +1,7 @@
 import React, { useState} from 'react';
 import { getResultFromRoutingApi, getResultFromGeocodingApi } from "../api/Geoapify";
+import { getCustomerById } from "../components/Customer";
+import { getStoreById } from "../components/Store";
 
 const DemoLivraison = () => {
     const [distance, setDistance] = useState(null);
@@ -7,12 +9,14 @@ const DemoLivraison = () => {
     const [storeId, setStoreId] = useState("");
     const [routeData, setRouteData] = useState(null);
     const [geocodeData, setGeocodeData] = useState(null);
+    const [customer, setCustomer] = useState(null);
+    const [store, setStore] = useState(null);
+    const address = '';
 
     //Params écrits en dur à changer
     const fromWaypoint = [38.937165, -77.04559];
     const toWaypoint = [39.881152, -76.990693];
 
-    const address = "17 avenue du 11 novembre 1918, 94400, Vitry-sur-Seine, France";
 
     // Function to call the routage API
     const callRoutingApi = async () => {
@@ -29,7 +33,7 @@ const DemoLivraison = () => {
     // Function to call the geocoding API
     const callGeocodingApi = async () => {
         try {
-            const response = await getResultFromGeocodingApi(address);
+            const response = await getResultFromGeocodingApi(customer.address);
             const lat = response.features[0]?.properties.lat;
             const lon = response.features[0]?.properties.lon;
             setGeocodeData({ lat, lon });
@@ -38,6 +42,17 @@ const DemoLivraison = () => {
         }
     };
 
+    const handleFetchData = async () => {
+        if (customerId) {
+            const customerData = await getCustomerById(customerId);
+            setCustomer(customerData);
+        }
+
+        if (storeId) {
+            const storeData = await getStoreById(storeId);
+            setStore(storeData);
+        }
+    };
 
     // Display
     return (
@@ -61,21 +76,45 @@ const DemoLivraison = () => {
                 />
             </div>
             <br />
-            <button onClick={callGeocodingApi}>Tester API Geocoding</button>
-            {geocodeData && (
+            <button onClick={handleFetchData}>Récupérer données client et magasin</button>
+
+            {customer && (
                 <div>
-                    <p><strong>Latitude : </strong>{geocodeData.lat}</p>
-                    <p><strong>Longitude : </strong>{geocodeData.lon}</p>
+                    <br/>
+                    <h3>Client :</h3>
+                    <p><strong>Nom : </strong>{customer.firstname} {customer.lastname}</p>
+                    <p><strong>Adresse : </strong>{customer.address}</p>
                 </div>
             )}
-            <br />
-            <button onClick={callRoutingApi}>Tester API Routing</button>
-            {distance !== null && (
+
+            {store && (
                 <div>
-                    <p><strong>Distance calculée : {distance} km</strong></p>
+                    <br/>
+                    <h3>Magasin :</h3>
+                    <p><strong>Nom : </strong>{store.name}</p>
+                    <p><strong>Adresse : </strong>{store.address}</p>
                 </div>
             )}
-            <br />
+
+            {customer && store && (
+                <>
+                    <br />
+                    <button onClick={callGeocodingApi}>Tester API Geocoding</button>
+                    {geocodeData && (
+                        <div>
+                            <p><strong>Latitude : </strong>{geocodeData.lat}</p>
+                            <p><strong>Longitude : </strong>{geocodeData.lon}</p>
+                        </div>
+                    )}
+                    <br />
+                    <button onClick={callRoutingApi}>Tester API Routing</button>
+                    {distance !== null && (
+                        <div>
+                            <p><strong>Distance calculée : {distance} km</strong></p>
+                        </div>
+                    )}
+                </>
+            )}
         </div>
     );
 };

@@ -1,6 +1,16 @@
 import React, { useEffect, useState } from 'react';
 import axios from "axios";
-import { GET_STORES } from "../constants/back";
+import {GET_STORES, LOCAL_HOST_STORE} from "../constants/back";
+
+export const getStoreById = async (storeId) => {
+    try {
+        const response = await axios.get(LOCAL_HOST_STORE + storeId);
+        return response.data;
+    } catch (error) {
+        console.error("Erreur lors de la récupération du magasin : ", error);
+        return null;
+    }
+};
 
 export default function Store(){
     const [stores, setStores] = useState([]);
