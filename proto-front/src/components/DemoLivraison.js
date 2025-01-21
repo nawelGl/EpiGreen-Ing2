@@ -8,15 +8,36 @@ const DemoLivraison = () => {
     const [customerId, setCustomerId] = useState("");
     const [storeId, setStoreId] = useState("");
     const [routeData, setRouteData] = useState(null);
-    const [geocodeData, setGeocodeData] = useState(null);
     const [customer, setCustomer] = useState(null);
     const [store, setStore] = useState(null);
-    const address = '';
+    const [customerCoordinates, setCustomerCoordinates] = useState({
+        latitude: '',
+        longitude: ''
+    });
+    const [storeCoordinates, setStoreCoordinates] = useState({
+        latitude: '',
+        longitude: ''
+    });
 
     //Params écrits en dur à changer
     const fromWaypoint = [38.937165, -77.04559];
     const toWaypoint = [39.881152, -76.990693];
 
+    // Function to fetch customer data
+    const fetchCustomerData = async () => {
+        if (customerId) {
+            const customerData = await getCustomerById(customerId);
+            setCustomer(customerData);
+        }
+    };
+
+    // Function to fetch store data
+    const fetchStoreData = async () => {
+        if (storeId) {
+            const storeData = await getStoreById(storeId);
+            setStore(storeData);
+        }
+    };
 
     // Function to call the routage API
     const callRoutingApi = async () => {
@@ -30,34 +51,51 @@ const DemoLivraison = () => {
         }
     };
 
-    // Function to call the geocoding API
-    const callGeocodingApi = async () => {
-        try {
-            const response = await getResultFromGeocodingApi(customer.address);
-            const lat = response.features[0]?.properties.lat;
-            const lon = response.features[0]?.properties.lon;
-            setGeocodeData({ lat, lon });
-        } catch (error) {
-            console.error("Erreur lors de l'appel à l'API de géocodage : ", error);
+    // Function to call the geocoding API for the customer
+    const fetchCustomerCoordinates = async () => {
+        if (customer?.address) {
+            try {
+                const response = await getResultFromGeocodingApi(customer.address);
+                const lat = response.features[0]?.properties.lat;
+                const lon = response.features[0]?.properties.lon;
+                if (
+                    lat !== customerCoordinates.latitude ||
+                    lon !== customerCoordinates.longitude
+                ) {
+                    setCustomerCoordinates({ latitude: lat, longitude: lon });
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'appel à l'API de géocodage pour le client : ", error);
+            }
         }
     };
 
-    const handleFetchData = async () => {
-        if (customerId) {
-            const customerData = await getCustomerById(customerId);
-            setCustomer(customerData);
-        }
-
-        if (storeId) {
-            const storeData = await getStoreById(storeId);
-            setStore(storeData);
+// Function to call the geocoding API for the store
+    const fetchStoreCoordinates = async () => {
+        if (store?.address) {
+            try {
+                const response = await getResultFromGeocodingApi(store.address);
+                const lat = response.features[0]?.properties.lat;
+                const lon = response.features[0]?.properties.lon;
+                if (
+                    lat !== storeCoordinates.latitude ||
+                    lon !== storeCoordinates.longitude
+                ) {
+                    setStoreCoordinates({ latitude: lat, longitude: lon });
+                }
+            } catch (error) {
+                console.error("Erreur lors de l'appel à l'API de géocodage pour le magasin : ", error);
+            }
         }
     };
+
+
 
     // Display
     return (
         <div className="container">
-            <h2>Démo Livraison</h2><br />
+            <h2>Démo Livraison</h2><br/>
+            <h3>Client :</h3>
             <div>
                 <label>Client ID : </label>
                 <input
@@ -66,7 +104,34 @@ const DemoLivraison = () => {
                     onChange={(e) => setCustomerId(e.target.value)}
                 />
             </div>
-            <br />
+            <br/>
+            <button onClick={fetchCustomerData}>Récupérer données du client</button>
+            <br/>
+
+            {customer && (
+                <>
+                    <div>
+                        <br/>
+                        <p><strong>Nom : </strong>{customer.firstname} {customer.lastname}</p>
+                        <p><strong>Adresse : </strong>{customer.address}</p>
+                    </div>
+                    <br/>
+                    <button onClick={fetchCustomerCoordinates}>
+                        Récupérer coordonnées client
+                    </button>
+                    {customerCoordinates.latitude && (
+                        <div>
+                            <p><strong>Latitude : </strong>{customerCoordinates.latitude}</p>
+                            <p><strong>Longitude : </strong>{customerCoordinates.longitude}</p>
+                        </div>
+                    )}
+                </>
+            )}
+
+            <br/>
+            <br/>
+
+            <h3>Magasin :</h3>
             <div>
                 <label>Magasin ID : </label>
                 <input
@@ -75,42 +140,23 @@ const DemoLivraison = () => {
                     onChange={(e) => setStoreId(e.target.value)}
                 />
             </div>
-            <br />
-            <button onClick={handleFetchData}>Récupérer données client et magasin</button>
-
-            {customer && (
-                <div>
-                    <br/>
-                    <h3>Client :</h3>
-                    <p><strong>Nom : </strong>{customer.firstname} {customer.lastname}</p>
-                    <p><strong>Adresse : </strong>{customer.address}</p>
-                </div>
-            )}
-
+            <br/>
+            <button onClick={fetchStoreData}>Récupérer données du magasin</button>
             {store && (
-                <div>
-                    <br/>
-                    <h3>Magasin :</h3>
-                    <p><strong>Nom : </strong>{store.name}</p>
-                    <p><strong>Adresse : </strong>{store.address}</p>
-                </div>
-            )}
-
-            {customer && store && (
                 <>
-                    <br />
-                    <button onClick={callGeocodingApi}>Tester API Geocoding</button>
-                    {geocodeData && (
+                    <div>
+                        <br/>
+                        <p><strong>Nom : </strong>{store.name}</p>
+                        <p><strong>Adresse : </strong>{store.address}</p>
+                    </div>
+                    <br/>
+                    <button onClick={fetchStoreCoordinates}>
+                        Récupérer coordonnées magasin
+                    </button>
+                    {storeCoordinates.latitude && (
                         <div>
-                            <p><strong>Latitude : </strong>{geocodeData.lat}</p>
-                            <p><strong>Longitude : </strong>{geocodeData.lon}</p>
-                        </div>
-                    )}
-                    <br />
-                    <button onClick={callRoutingApi}>Tester API Routing</button>
-                    {distance !== null && (
-                        <div>
-                            <p><strong>Distance calculée : {distance} km</strong></p>
+                            <p><strong>Latitude : </strong>{storeCoordinates.latitude}</p>
+                            <p><strong>Longitude : </strong>{storeCoordinates.longitude}</p>
                         </div>
                     )}
                 </>
