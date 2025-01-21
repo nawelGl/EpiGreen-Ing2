@@ -16,7 +16,7 @@ public class DistanceService {
 
     @Autowired
     private StoreRepository storeRepository;
-
+/**
     public float calculateDistance(Long customerId, Long storeId) {
         Customer customer = customerRepository.findById(customerId)
                 .orElseThrow(() -> new RuntimeException("Client non trouvé"));
@@ -25,4 +25,5 @@ public class DistanceService {
 
         return DistanceRequest.getDistanceFromApi(customer.getAddress(), store.getAddress());
     }
+ */
 }

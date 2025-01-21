@@ -1,6 +1,6 @@
 package esiag.back.services.httpRequests;
 
-import esiag.back.models.address.Address;
+//import esiag.back.models.address.Address;
 import esiag.back.models.customer.Customer;
 import esiag.back.models.store.Store;
 import java.net.URI;
@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DistanceRequest{
-    protected static Logger logger = LogManager.getLogger(DistanceRequest.class);
+    /**protected static Logger logger = LogManager.getLogger(DistanceRequest.class);
     private static final String BASE_URL = "https://api.jawg.io/routing/route/v1/car/";
 
     @Value("${jawg.api.token}")
@@ -92,5 +92,5 @@ public class DistanceRequest{
 //            logger.warn("Erreur lors de la requête HTTP : " + e.getMessage());
 //            return -1;
 //        }
-//    }
+//    }*/
 }

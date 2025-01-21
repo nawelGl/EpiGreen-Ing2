@@ -19,6 +19,47 @@ public class ProcessSteps {
     @Column(name = "consumption", nullable = false)
     private double consumption;
 
+    // Constructeurs
+    public ProcessSteps() {}
 
+    public ProcessSteps(String stepName, double consumption) {
+        this.stepName = stepName;
+        this.consumption = consumption;
+    }
+
+    // Getters et setters
+    public int getIdProcessStep() {
+        return idProcessStep;
+    }
+
+    public void setIdProcessStep(int idProcessStep) {
+        this.idProcessStep = idProcessStep;
+    }
+
+    public String getStepName() {
+        return stepName;
+    }
+
+    public void setStepName(String stepName) {
+        this.stepName = stepName;
+    }
+
+    public double getConsumption() {
+        return consumption;
+    }
+
+    public void setConsumption(double consumption) {
+        this.consumption = consumption;
+    }
+
+    // Méthode toString
+    @Override
+    public String toString() {
+        return "ProcessSteps{" +
+                "idProcessStep=" + idProcessStep +
+                ", stepName='" + stepName + '\'' +
+                ", consumption=" + consumption +
+                '}';
+    }
 }
 

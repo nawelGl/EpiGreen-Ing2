@@ -22,6 +22,10 @@ export default function Navbar(){
             <li className="nav-item">
                 <Link className="nav-link" to="/logs">Logs</Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/demoEcTransport">Demo EC Transport</Link>
+            </li>
+
         </ul>
     );
 };

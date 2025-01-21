@@ -8,6 +8,8 @@ import NotFound from "./NotFound";
 import Customer from "./Customer";
 import Store from "./Store";
 import Logs from "./Logs";
+import DemoEcTransport from './DemoEcTransport';
+
 
 export default function Router () {
     return (
@@ -22,6 +24,7 @@ export default function Router () {
                     <Route path="/demoLivraison" element={<DemoLivraison />}/>
                     <Route path="/logs" element={<Logs />}/>
                     <Route path="*" element={<NotFound />}/>
+                    <Route path="/demoECTransport" element={<DemoEcTransport />} />
                 </Routes>
             </div>
         </BrowserRouter>

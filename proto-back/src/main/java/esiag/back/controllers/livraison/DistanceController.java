@@ -12,7 +12,7 @@ public class DistanceController {
 
     @Autowired
     private DistanceService distanceService;
-
+/**
     @PostMapping("/calculate-distance")
     public float calculateDistance(@RequestBody DistanceRequestDto requestDto) {
         Long customerId = requestDto.getCustomerId();
@@ -20,4 +20,5 @@ public class DistanceController {
 
         return distanceService.calculateDistance(customerId, storeId);
     }
+    */
 }
