@@ -6,7 +6,7 @@ export default function Similarity() {
 
     const [productId1, setProductId1]= useState("");
     const [productId2, setProductId2]= useState("");
-    const [results, setResults] = useState([]); // Stocker les résultats du backend
+    const [result, setResult] = useState([]); // Stocker les résultats du backend
 
     const handleSearch = async ()=>{
         console.log("Product id1: ",productId1);
@@ -14,8 +14,8 @@ export default function Similarity() {
         try {
             // Appel au backend avec les ID
             const response = await axios.post('api/similarityById', {
-                productId1: productId1,
-                productId2: productId2
+                productId1: parseInt(productId1),
+                productId2: parseInt(productId2)
             });
             console.log("réponse reçu: ",response);
 
@@ -24,7 +24,7 @@ export default function Similarity() {
             }
 
             const data = await response.json();
-            setResults(data); // Stocke les résultats retournés par le backend
+            setResult(data); // Stocke les résultats retournés par le backend
         } catch (error) {
             console.error("Erreur lors de la recherche :", error);
             alert("Une erreur est survenue lors de la recherche.");
@@ -40,7 +40,7 @@ export default function Similarity() {
     // return of result
     return (
         <div className="container text-center">
-            <h1>Recherche</h1>
+            <h1>Similarity Search</h1>
             <div className="search-bar">
                 <input
                     type="text"
@@ -61,6 +61,14 @@ export default function Similarity() {
                     }} // Détection de la touche "Enter"
                 />
                 <button onClick={handleSearch}>Enter</button>
+            </div>
+            <div>
+                {result !==null &&(
+                    <div>
+                        <h2>Similarity score:</h2>
+                        <p>{result}</p>
+                    </div>
+                )}
             </div>
         </div>
 

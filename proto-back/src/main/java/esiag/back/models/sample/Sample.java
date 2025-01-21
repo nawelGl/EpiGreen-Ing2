@@ -27,7 +27,31 @@ public class Sample {
     @Column(name = "float_sample")
     private Float floatSample;
 
+    public Date getDateSample() {
+        return dateSample;
+    }
+    public void setDateSample(Date dateSample) {
+        this.dateSample = dateSample;
+    }
+    public String getStringSample() {
+        return stringSample;
+    }
+    public void setStringSample(String stringSample) {
+        this.stringSample = stringSample;
+    }
+    public Float getFloatSample() {
+        return floatSample;
+    }
+    public void setFloatSample(Float floatSample) {
+        this.floatSample = floatSample;
+    }
 
+    public Long getIdSample() {
+        return idSample;
+    }
+    public void setIdSample(Long idSample) {
+        this.idSample = idSample;
+    }
 
     //annotation
     @Enumerated(EnumType.STRING)
