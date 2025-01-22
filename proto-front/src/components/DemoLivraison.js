@@ -2,7 +2,6 @@ import React, { useState} from 'react';
 import { getResultFromRoutingApi, getResultFromGeocodingApi } from "../api/Geoapify";
 import { getCustomerById } from "../components/Customer";
 import { getStoreById } from "../components/Store";
-//TODO : régler problème sur les paramètres de l'API routing !
 const DemoLivraison = () => {
     const [distance, setDistance] = useState(null);
     const [customerId, setCustomerId] = useState("");
@@ -11,12 +10,12 @@ const DemoLivraison = () => {
     const [customer, setCustomer] = useState(null);
     const [store, setStore] = useState(null);
     const [customerCoordinates, setCustomerCoordinates] = useState({
-        latitude: '',
-        longitude: ''
+        latitude: null,
+        longitude: null
     });
     const [storeCoordinates, setStoreCoordinates] = useState({
-        latitude: '',
-        longitude: ''
+        latitude: null,
+        longitude: null
     });
 
     // Function to fetch customer data
@@ -81,6 +80,9 @@ const DemoLivraison = () => {
             // Convertir les objets en tableaux [latitude, longitude]
             const fromWaypoint = [customerCoordinates.latitude, customerCoordinates.longitude];
             const toWaypoint = [storeCoordinates.latitude, storeCoordinates.longitude];
+
+            console.log("fromWayPoint : " + fromWaypoint);
+            console.log("toWayPoint : " + toWaypoint);
 
             // Appeler l'API avec ces tableaux
             const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
@@ -165,7 +167,7 @@ const DemoLivraison = () => {
             )}
             {customerCoordinates && storeCoordinates && (
                 <>
-                    <button onClick={getResultFromRoutingApi}>
+                    <button onClick={callRoutingApi}>
                         Récupérer distance client - magasin
                     </button>
                     {distance && (
