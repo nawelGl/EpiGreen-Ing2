@@ -31,3 +31,4 @@ target/
 *.class
 *.jar
 *.lst
+/proto-front/node_modules
