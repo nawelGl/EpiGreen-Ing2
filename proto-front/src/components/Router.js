@@ -7,7 +7,6 @@ import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import Customer from "./Customer";
 import Store from "./Store";
-import Logs from "./Logs";
 
 export default function Router () {
     return (
@@ -20,7 +19,6 @@ export default function Router () {
                     <Route path="/customer" element={<Customer />}/>
                     <Route path="/store" element={<Store />}/>
                     <Route path="/demoLivraison" element={<DemoLivraison />}/>
-                    <Route path="/logs" element={<Logs />}/>
                     <Route path="*" element={<NotFound />}/>
                 </Routes>
             </div>

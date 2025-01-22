@@ -2,7 +2,6 @@ package esiag.back.models.account;
 
 import esiag.back.models.customer.Customer;
 import lombok.Data;
-
 import javax.persistence.*;
 
 @Entity
