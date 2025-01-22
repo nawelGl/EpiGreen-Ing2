@@ -1,13 +1,15 @@
 package esiag.back.models.transportationMeans;
+import lombok.Data;
+
 import javax.persistence.*;
 
 @Entity
+@Data
 @Table(name = "ref_transportation_means")
-public class TransportationMeans {
+public class TransportationMean {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "transportation_means_seq")
-    @SequenceGenerator(name = "transportation_means_seq", sequenceName = "transportation_means_id_transportation_means_seq", allocationSize = 1)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_transportation_means", nullable = false)
     private int idTransportationMeans;
 

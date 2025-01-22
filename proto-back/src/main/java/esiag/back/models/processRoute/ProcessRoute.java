@@ -1,4 +1,5 @@
 package esiag.back.models.processRoute;
+import esiag.back.models.transportationMeans.Area;
 import lombok.Data;
 import javax.persistence.*;
 
@@ -32,6 +33,9 @@ public class ProcessRoute {
 
     @Column(name = "city_dep", nullable = true)
     private String cityDep;
+
+    @Column(name = "area", nullable = true)
+    private String area;
 
 
 

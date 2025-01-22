@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import {GET_PROCESS_ROUTES_BY_PRODUCT} from "../constants/back";
-import {getResultFromGeocodingApi} from "../api/Geoapify";
+import {getResultFromGeocodingApi, getResultFromRoutingApi} from "../api/Geoapify";
 
 const DemoEcTransport = () => {
     const [productId, setProductId] = useState("");
@@ -19,7 +19,7 @@ const DemoEcTransport = () => {
         try {
             const response = await axios.get(GET_PROCESS_ROUTES_BY_PRODUCT+productId);
             setProcessRoutes(response.data);
-            setCityDetails(null); // Réinitialiser les détails sélectionnés
+            setCityDetails(null);
             setError(null);
         } catch (error) {
             console.error("Erreur lors de la récupération des trajets :", error);
@@ -55,7 +55,27 @@ const DemoEcTransport = () => {
         }
     };
 
-    return (
+        const calculateDistance = async () => {
+            if (!cityDetails?.fromCity || !cityDetails?.toCity) return alert("Veuillez sélectionner une route.");
+
+            try {
+                const { features } = await getResultFromRoutingApi(
+                    [cityDetails.fromCity.latitude, cityDetails.fromCity.longitude],
+                    [cityDetails.toCity.latitude, cityDetails.toCity.longitude]
+                );
+                const distanceInKm = features[0]?.properties?.distance / 1000;
+                if (distanceInKm) {
+                    alert(`La distance entre ${cityDetails.fromCity.city} et ${cityDetails.toCity.city} est de ${distanceInKm} km.`);
+                } else {
+                    alert("La distance n'a pas pu être calculée.");
+                }
+            } catch (error) {
+                alert("Erreur lors du calcul de la distance.");
+            }
+        };
+
+
+        return (
         <div className="container">
             <h2>Demo EC Transport</h2>
             <div>
@@ -79,6 +99,7 @@ const DemoEcTransport = () => {
                         <th>Type de Transport</th>
                         <th>Ville de Départ</th>
                         <th>Ville d'Arrivée</th>
+                        <th>Zone</th>
                         <th>Empreinte Carbone</th>
                     </tr>
                     </thead>
@@ -89,6 +110,7 @@ const DemoEcTransport = () => {
                             <td>{route.typeTransportation}</td>
                             <td>{route.cityDep}</td>
                             <td>{route.cityArr}</td>
+                            <td>{route.area}</td>
                             <td>{route.carbonFootprint}</td>
                         </tr>
                     ))}
@@ -103,18 +125,22 @@ const DemoEcTransport = () => {
                     <h3>Détails du Trajet Sélectionné :</h3>
                     <p><strong>Type de Transport :</strong> {cityDetails.typeTransportation}</p>
                     <p><strong>Ville de Départ :</strong> {cityDetails.fromCity.city}</p>
-                    <p><strong>     Pays (Départ) :</strong> {cityDetails.fromCity.country}</p>
-                    <p><strong>     Latitude (Départ) :</strong> {cityDetails.fromCity.latitude}</p>
-                    <p><strong>     Longitude (Départ) :</strong> {cityDetails.fromCity.longitude}</p>
+                    <p><strong> Pays (Départ) :</strong> {cityDetails.fromCity.country}</p>
+                    <p><strong> Latitude (Départ) :</strong> {cityDetails.fromCity.latitude}</p>
+                    <p><strong> Longitude (Départ) :</strong> {cityDetails.fromCity.longitude}</p>
                     <p><strong>Ville d'Arrivée :</strong> {cityDetails.toCity.city}</p>
                     <p><strong>Latitude (Arrivée) :</strong> {cityDetails.toCity.latitude}</p>
                     <p><strong>Longitude (Arrivée) :</strong> {cityDetails.toCity.longitude}</p>
                     <p><strong>Pays (Arrivée) :</strong> {cityDetails.toCity.country}</p>
                     <p><strong>Empreinte Carbone :</strong> {cityDetails.carbonFootprint}</p>
+
+                    <button onClick={calculateDistance}> Calculer la distance </button>
                 </div>
-            )}
-        </div>
-    );
-};
+                )}
+</div>
+)
+;
+}
+;
 
 export default DemoEcTransport;
