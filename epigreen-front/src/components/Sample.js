@@ -9,7 +9,7 @@ export default function Sample() {
     dateSample: '',
     stringSample: '',
     floatSample: '',
-    sampleType: 'SAMPLE_TYPE1' // Exemple de valeur par défaut
+    sampleType: 'SAMPLE_TYPE1' // Exemple de valeur par défSampleLiaut
   });
   const [isAdding, setIsAdding] = useState(false);
 
@@ -75,7 +75,7 @@ export default function Sample() {
 
   return (
     <div className="container text-center">
-      <h4 className="mx-2">Samples List</h4>
+      <h4 className="mx-2">Samples List </h4>
 
       <button
         className="btn btn-outline-primary mb-3"
