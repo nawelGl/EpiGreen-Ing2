@@ -1,22 +1,24 @@
 import React, { useState} from 'react';
 import { getResultFromRoutingApi, getResultFromGeocodingApi } from "../api/Geoapify";
 import { getCustomerById } from "../components/Customer";
-import { getStoreById } from "../components/Store";
+import { getEntrepotById } from "../components/Entrepot";
+
 const DemoLivraison = () => {
     const [distance, setDistance] = useState(null);
     const [customerId, setCustomerId] = useState("");
-    const [storeId, setStoreId] = useState("");
+    const [entrepotId, setEntrepotId] = useState("");
     const [routeData, setRouteData] = useState(null);
     const [customer, setCustomer] = useState(null);
-    const [store, setStore] = useState(null);
+    const [entrepot, setEntrepot] = useState(null);
     const [customerCoordinates, setCustomerCoordinates] = useState({
         latitude: null,
         longitude: null
     });
-    const [storeCoordinates, setStoreCoordinates] = useState({
+    const [entrepotCoordinates, setEntrepotCoordinates] = useState({
         latitude: null,
         longitude: null
     });
+
 
     // Function to fetch customer data
     const fetchCustomerData = async () => {
@@ -26,11 +28,13 @@ const DemoLivraison = () => {
         }
     };
 
-    // Function to fetch store data
-    const fetchStoreData = async () => {
-        if (storeId) {
-            const storeData = await getStoreById(storeId);
-            setStore(storeData);
+
+    // Function to fetch entrepot data
+    const fetchEntrepotData = async () => {
+        if (entrepotId) {
+            const entrepotData = await getEntrepotById(entrepotId);
+            console.log("Données entrepot : " + entrepotData);
+            setEntrepot(entrepotData);
         }
     };
 
@@ -54,21 +58,22 @@ const DemoLivraison = () => {
         }
     };
 
-// Function to call the geocoding API for the store
-    const fetchStoreCoordinates = async () => {
-        if (store?.address) {
+
+    // Function to call the geocoding API for the entrepot
+    const fetchEntrepotCoordinates = async () => {
+        if (entrepot?.address) {
             try {
-                const response = await getResultFromGeocodingApi(store.address);
+                const response = await getResultFromGeocodingApi(entrepot.address);
                 const lat = response.features[0]?.properties.lat;
                 const lon = response.features[0]?.properties.lon;
                 if (
-                    lat !== storeCoordinates.latitude ||
-                    lon !== storeCoordinates.longitude
+                    lat !== entrepotCoordinates.latitude ||
+                    lon !== entrepotCoordinates.longitude
                 ) {
-                    setStoreCoordinates({ latitude: lat, longitude: lon });
+                    setEntrepotCoordinates({ latitude: lat, longitude: lon });
                 }
             } catch (error) {
-                console.error("Erreur lors de l'appel à l'API de géocodage pour le magasin : ", error);
+                console.error("Erreur lors de l'appel à l'API de géocodage pour l'entrepot : ", error);
             }
         }
     };
@@ -79,7 +84,7 @@ const DemoLivraison = () => {
         try {
             // Convertir les objets en tableaux [latitude, longitude]
             const fromWaypoint = [customerCoordinates.latitude, customerCoordinates.longitude];
-            const toWaypoint = [storeCoordinates.latitude, storeCoordinates.longitude];
+            const toWaypoint = [entrepotCoordinates.latitude, entrepotCoordinates.longitude];
 
             console.log("fromWayPoint : " + fromWaypoint);
             console.log("toWayPoint : " + toWaypoint);
@@ -92,6 +97,12 @@ const DemoLivraison = () => {
         } catch (error) {
             console.error("Erreur lors de l'appel à l'API de routage : ", error);
         }
+    };
+
+
+    const calculQuantiteCo2 = async () => {
+        //TODO : ajouter table livraison pour pouvoir calculer emissions CO2 (calculer distace avec les attributs de la livraison aussi)
+        //const quantiteCO2 = distance * livraison.transport.kgCo2;
     };
 
 
@@ -135,40 +146,39 @@ const DemoLivraison = () => {
             <br/>
             <br/>
 
-            <h3>Magasin :</h3>
+            <h3>Entrepot :</h3>
             <div>
-                <label>Magasin ID : </label>
+                <label>Entrepot ID : </label>
                 <input
                     type="number"
-                    value={storeId}
-                    onChange={(e) => setStoreId(e.target.value)}
+                    value={entrepotId}
+                    onChange={(e) => setEntrepotId(e.target.value)}
                 />
             </div>
             <br/>
-            <button onClick={fetchStoreData}>Récupérer données du magasin</button>
-            {store && (
+            <button onClick={fetchEntrepotData}>Récupérer données de l'entrepot</button>
+            {entrepot && (
                 <>
                     <div>
                         <br/>
-                        <p><strong>Nom : </strong>{store.name}</p>
-                        <p><strong>Adresse : </strong>{store.address}</p>
+                        <p><strong>Adresse : </strong>{entrepot.address}</p>
                     </div>
                     <br/>
-                    <button onClick={fetchStoreCoordinates}>
+                    <button onClick={fetchEntrepotCoordinates}>
                         Récupérer coordonnées magasin
                     </button>
-                    {storeCoordinates.latitude && (
+                    {entrepotCoordinates.latitude && (
                         <div>
-                            <p><strong>Latitude : </strong>{storeCoordinates.latitude}</p>
-                            <p><strong>Longitude : </strong>{storeCoordinates.longitude}</p>
+                            <p><strong>Latitude : </strong>{entrepotCoordinates.latitude}</p>
+                            <p><strong>Longitude : </strong>{entrepotCoordinates.longitude}</p>
                         </div>
                     )}
                 </>
             )}
-            {customerCoordinates && storeCoordinates && (
+            {customerCoordinates && entrepotCoordinates && (
                 <>
                     <button onClick={callRoutingApi}>
-                        Récupérer distance client - magasin
+                        Récupérer distance client - entrepot
                     </button>
                     {distance && (
                         <>

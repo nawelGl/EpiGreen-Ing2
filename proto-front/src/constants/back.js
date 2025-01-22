@@ -14,3 +14,5 @@ export const GET_STORES = LOCAL_HOST_STORE + 'all';
 
 export const LOCAL_HOST_ENTREPOT = LOCAL_HOST + '/entrepot/';
 export const GET_ENTREPOTS = LOCAL_HOST_ENTREPOT + 'all';
+
+export const LOCAL_HOST_ACCOUNT = LOCAL_HOST + '/account/';
