@@ -1,8 +1,6 @@
 package esiag.back.models.customer;
 
 import lombok.Data;
-import org.hibernate.annotations.Type;
-
 import javax.persistence.*;
 import java.time.LocalDate;
 
@@ -25,21 +23,6 @@ public class Customer {
     @Column(name = "birthdate")
     private LocalDate birthdate;
 
-    @Column(name = "street_number")
-    private Integer streetNumber;
-
-    @Column(name = "street")
-    private String street;
-
-    @Column(name = "zipcode")
-    private Integer zipCode;
-
-    @Column(name = "city")
-    private String city;
-
-    @Column(name = "latitude")
-    private Double latitude;
-
-    @Column(name = "longitude")
-    private Double longitude;
+    @Column(name = "address")
+    private String address;
 }
