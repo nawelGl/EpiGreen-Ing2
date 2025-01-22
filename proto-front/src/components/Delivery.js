@@ -6,7 +6,7 @@ export const getDeliveryById = async (deliveryId) => {
         const response = await axios.get(LOCAL_HOST_DELIVERY + deliveryId);
         return response.data;
     } catch (error) {
-        console.error("Erreur lors de la récupération du compte : ", error);
+        console.error("Erreur lors de la récupération des informations de livraison : ", error);
         return null;
     }
 };
