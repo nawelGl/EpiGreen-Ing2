@@ -89,4 +89,19 @@ public class Product {
     public void SetPrice(int price) {
         this.price = price;
     }
+
+    //methode pour imprimer
+    @Override
+    public String toString() {
+        return "Product{" +
+                "idProduct=" + idProduct +
+                ", reference=" + reference +
+                ", section='" + section + '\'' +
+                ", category='" + category + '\'' +
+                ", size='" + size + '\'' +
+                ", color='" + color + '\'' +
+                ", material='" + material + '\'' +
+                ", price=" + price +
+                '}';
+    }
 }

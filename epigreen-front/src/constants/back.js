@@ -7,7 +7,10 @@ export const SIMILARITY_API= LOCAL_HOST+'/api/similarityById'
 export const SIMILARITY_SERVICE={
     calculateSimilarity: SIMILARITY_API,
 }
-
+export const SEARCH_API= LOCAL_HOST+'/api/similarity-search'
+export const SEARCH_SERVICE={
+    findSimilarProducts: SEARCH_API,
+}
 
 //sample service endpoints
 export const LOCAL_HOST_SAMPLE = LOCAL_HOST + '/sample/';

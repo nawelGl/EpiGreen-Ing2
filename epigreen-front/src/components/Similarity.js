@@ -8,7 +8,7 @@ export default function Similarity() {
     const [productId1, setProductId1]= useState("");
     const [productId2, setProductId2]= useState("");
     const [result, setResult] = useState(null); // Stocker le résultat du backend
-    //definition of backend adress
+    //definition of backend address
 
     const handleSearch = async ()=>{
         console.log("Product id1: ",productId1);
