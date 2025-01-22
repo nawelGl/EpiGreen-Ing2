@@ -8,24 +8,24 @@ export default function DemoEcTransport() {
     const [processRoutes, setProcessRoutes] = useState([]); // Liste des trajets effectué durant le process du produit
     const [error, setError] = useState(null);
 
-    const getProcessRoutes = () => {
+    const getProcessRoutes = async () => {
         if (!productId) {
             alert("Veuillez entrer un ID produit valide.");
             return;
         }
 
-        // Modifie l'URL pour correspondre au format attendu
-        axios.get(`${GET_PROCESS_ROUTES_BY_PRODUCT}/${productId}`)
-            .then(response => {
-                setProcessRoutes(response.data);
-                setError(null);
-            })
-            .catch(error => {
-                console.error("Erreur lors de la récupération des trajets :", error);
-                setError("Une erreur s'est produite lors de la récupération des trajets. Veuillez vérifier l'ID produit ou réessayer.");
-                setProcessRoutes([]);
-            });
+        try {
+            const response = await axios.get(`${GET_PROCESS_ROUTES_BY_PRODUCT}${productId}`);
+            setProcessRoutes(response.data);
+            setError(null);
+        } catch (error) {
+            console.error("Erreur lors de la récupération des trajets :", error);
+            setError("Une erreur s'est produite lors de la récupération des trajets. Veuillez vérifier l'ID produit ou réessayer.");
+            setProcessRoutes([]);
+        }
     };
+
+
     const setProcessRouteData = async () => {
         console.log("Début du traitement");
         console.log(GET_PROCESS_ROUTES);
@@ -81,7 +81,6 @@ export default function DemoEcTransport() {
                     {processRoutes.map((route) => (
                         <tr key={route.idProcessRoutes}>
                             <td>{route.idProcessRoutes}</td>
-                            <td>{route.typeTransportation}</td>
                             <td>{route.typeTransportation}</td>
                             <td>{route.cityDep}</td>
                             <td>{route.cityArr}</td>

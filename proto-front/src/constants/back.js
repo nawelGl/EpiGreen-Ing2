@@ -15,4 +15,4 @@ export const GET_STORES = LOCAL_HOST_STORE + 'all';
 export const LOCAL_HOST_PROCESS_ROUTES = LOCAL_HOST + '/processroute/';
 export const GET_PROCESS_ROUTES_BY_ID = LOCAL_HOST_PROCESS_ROUTES + '/{id}';
 export const GET_PROCESS_ROUTES = LOCAL_HOST_PROCESS_ROUTES + 'all';
-export const GET_PROCESS_ROUTES_BY_PRODUCT = LOCAL_HOST_PROCESS_ROUTES + 'by-product/{idProduct}'; // Nouvelle route pour idProduct
+export const GET_PROCESS_ROUTES_BY_PRODUCT = LOCAL_HOST_PROCESS_ROUTES + 'by-product/'; // Nouvelle route pour idProduct
