@@ -26,7 +26,7 @@ export default function Similarity() {
             setResult(similarityResponse.data); // Stocke les résultats retournés par le backend
 
             const product1Response = await axios.get(`${GET_PRODUCT_BY_ID}${productId1}`);
-            const product2Response = await axios.get(`${GET_PRODUCT_BY_ID}${productId2}`)
+            const product2Response = await axios.get(`${GET_PRODUCT_BY_ID}${productId2}`);
 
             console.log("Product 1 response: ", product1Response);
             console.log("Product 2 response: ", product2Response);

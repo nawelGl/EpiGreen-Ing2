@@ -15,7 +15,7 @@ export const SEARCH_SERVICE={
 
 //product service endpoints
 
-export const GET_PRODUCT_BY_ID = LOCAL_HOST+'/{id}';
+export const GET_PRODUCT_BY_ID = LOCAL_HOST+'/product/';
 
 //sample service endpoints
 export const LOCAL_HOST_SAMPLE = LOCAL_HOST + '/sample/';
