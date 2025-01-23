@@ -100,15 +100,7 @@ const DemoLivraison = () => {
     // Function to call the routage API
     const callRoutingApi = async () => {
         try {
-            // Convertir les objets en tableaux [latitude, longitude]
-            const fromWaypoint = [customerCoordinates.latitude, customerCoordinates.longitude];
-            const toWaypoint = [entrepotCoordinates.latitude, entrepotCoordinates.longitude];
-
-            console.log("fromWayPoint : " + fromWaypoint);
-            console.log("toWayPoint : " + toWaypoint);
-
-            // Appeler l'API avec ces tableaux
-            const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
+            const response = await getResultFromRoutingApi(customerCoordinates.latitude, customerCoordinates.longitude, entrepotCoordinates.latitude,entrepotCoordinates.longitude);
             const distance = response.features[0]?.properties.distance / 1000;
             setDistance(distance);
             setRouteData(response);

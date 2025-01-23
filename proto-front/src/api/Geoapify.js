@@ -1,8 +1,8 @@
 import axios from "axios";
 
-export const getResultFromRoutingApi = async (fromWaypoint, toWaypoint) => {
+export const getResultFromRoutingApi = async (fromWaypointLatitde, fromWaypointLongitude, toWaypointLatitude, toWaypointLongitude) => {
     const myAPIKey = "c81205a4fb97473b93dd0df61a9838c6";
-    const url = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint.join(",")}|${toWaypoint.join(",")}&mode=drive&details=instruction_details&apiKey=${myAPIKey}`;
+    const url = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypointLatitde},${fromWaypointLongitude}|${toWaypointLatitude},${toWaypointLongitude}&mode=drive&details=instruction_details&apiKey=${myAPIKey}`;
     const response = await axios.get(url);
     return response.data;
 };

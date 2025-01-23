@@ -12,9 +12,9 @@ export default function Livraison() {
     const [customer, setCustomer] = useState(null);
     const [entrepot, setEntrepot] = useState(null);
     const [transportation, setTransportation] = useState(null);
+
     const [distance, setDistance] = useState(null);
-    const [customerCoordinatesDetails, setCustomerCoordinatesDetails] = useState("");
-    const [entrepotCoordinatesDetails, setEntrepotCoordinatesDetails] = useState("");
+
     const [customerCoordinates, setCustomerCoordinates] = useState({
         latitude: null,
         longitude: null,
@@ -23,6 +23,7 @@ export default function Livraison() {
         latitude: null,
         longitude: null,
     });
+
     const [cO2quantity, setCO2quantity] = useState(null);
 
 
@@ -51,8 +52,6 @@ export default function Livraison() {
         if (customer?.address) {
             try {
                 const response = await getResultFromGeocodingApi(customer.address);
-                const stringifiedResponse = JSON.stringify(response);
-                setCustomerCoordinatesDetails(stringifiedResponse);
                 const lat = response.features[0]?.properties.lat;
                 const lon = response.features[0]?.properties.lon;
                 if (
@@ -72,8 +71,6 @@ export default function Livraison() {
         if (entrepot?.address) {
             try {
                 const response = await getResultFromGeocodingApi(entrepot.address);
-                const stringifiedResponse = JSON.stringify(response);
-                setEntrepotCoordinatesDetails(stringifiedResponse);
                 const lat = response.features[0]?.properties.lat;
                 const lon = response.features[0]?.properties.lon;
                 if (
@@ -92,15 +89,7 @@ export default function Livraison() {
     const callRoutingApi = async () => {
         console.log("DANS CALL ROUTING API");
         try {
-            // Convertir les objets en tableaux [latitude, longitude]
-            const fromWaypoint = [customerCoordinates.latitude, customerCoordinates.longitude];
-            const toWaypoint = [entrepotCoordinates.latitude, entrepotCoordinates.longitude];
-
-            console.log("fromWayPoint : " + fromWaypoint);
-            console.log("toWayPoint : " + toWaypoint);
-
-            // Appeler l'API avec ces tableaux
-            const response = await getResultFromRoutingApi(fromWaypoint, toWaypoint);
+            const response = await getResultFromRoutingApi(customerCoordinates.latitude, customerCoordinates.longitude, entrepotCoordinates.latitude,entrepotCoordinates.longitude);
             const distance = response.features[0]?.properties.distance / 1000;
             setDistance(distance);
         } catch (error) {
@@ -133,10 +122,9 @@ export default function Livraison() {
             entrepotCoordinates.latitude && entrepotCoordinates.longitude
         ) {
             callRoutingApi();
-        } else {
-            console.error("Coordonnées manquantes ou invalides :", { customerCoordinates, entrepotCoordinates });
         }
-    }, [customerCoordinates, entrepotCoordinates]);
+    }, [customerCoordinates.latitude, customerCoordinates.longitude,
+    entrepotCoordinates.latitude, entrepotCoordinates.longitude]);
 
     useEffect(() => {
         if (distance) {
