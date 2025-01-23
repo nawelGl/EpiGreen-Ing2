@@ -7,6 +7,13 @@ import NotFound from "./NotFound";
 import Search from "./Search";
 import Similarity from "./Similarity";
 
+import Customer from "./Customer";
+import Store from "./Store";
+import Logs from "./Logs";
+import DemoEcTransport from "./DemoEcTransport";
+import Livraison from "./Livraison";
+
+
 export default function Router () {
     return (
         <BrowserRouter>
@@ -18,6 +25,13 @@ export default function Router () {
                     <Route path="*" element={<NotFound />}/>
                     <Route path="/search" element={<Search />}/>
                     <Route path="/similarity" element={<Similarity />}/>
+                    <Route path="/customer" element={<Customer />}/>
+                    <Route path="/store" element={<Store />}/>
+                    <Route path="/demoLivraison" element={<DemoLivraison />}/>
+                    <Route path="*" element={<NotFound />}/>
+                    <Route path="/demoECTransport" element={<DemoEcTransport />} />
+                    <Route path="/livraison" element={<Livraison />}/>
+
                 </Routes>
             </div>
         </BrowserRouter>

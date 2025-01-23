@@ -16,6 +16,19 @@ export default function Navbar(){
             <li className="nav-item">
                 <Link className="nav-link" to="/similarity">Similarity</Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/store">Store</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/livraison">Livraison</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/demoLivraison">Livraisons (démo process)</Link>
+            </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/demoEcTransport">Demo EC Transport</Link>
+            </li>
+
         </ul>
-    );
+);
 };
