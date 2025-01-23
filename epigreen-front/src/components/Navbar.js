@@ -16,6 +16,9 @@ export default function Navbar(){
             <li className="nav-item">
                 <Link className="nav-link" to="/similarity">Similarity</Link>
             </li>
+            <li className="nav-item">
+                <Link className="nav-link" to="/logs">Logs</Link>
+            </li>
         </ul>
     );
 };
