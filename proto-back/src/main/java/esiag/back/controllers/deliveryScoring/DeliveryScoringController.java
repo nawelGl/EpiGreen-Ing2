@@ -1,6 +1,6 @@
 package esiag.back.controllers.deliveryScoring;
 
-import esiag.back.services.deliveryScoring.DeliveryScoring;
+import esiag.back.services.deliveryScoring.DeliveryScoringService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.*;
 public class DeliveryScoringController {
 
     @Autowired
-    private DeliveryScoring deliveryScoring;
+    private DeliveryScoringService deliveryScoring;
 
     @GetMapping("/score")
     public Character getDeliveryScore(@RequestParam Double carbonFootprint) {

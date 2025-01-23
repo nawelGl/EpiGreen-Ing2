@@ -23,4 +23,7 @@ public class Account {
     @ManyToOne
     @JoinColumn(name = "customer_id", referencedColumnName = "customer_id", nullable = false)
     private Customer customer;
+
+    @Column(name = "ecology_points")
+    private Integer ecologyPoints;
 }
