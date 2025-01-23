@@ -10,6 +10,7 @@ import Similarity from "./Similarity";
 import Customer from "./Customer";
 import Store from "./Store";
 import Logs from "./Logs";
+import DemoLivraison from "./DemoLivraison";
 import DemoEcTransport from "./DemoEcTransport";
 import Livraison from "./Livraison";
 
