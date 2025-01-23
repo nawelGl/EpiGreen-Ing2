@@ -11,3 +11,11 @@ export const GET_CUSTOMERS = LOCAL_HOST_CUSTOMER + 'all';
 
 export const LOCAL_HOST_STORE = LOCAL_HOST + '/store/';
 export const GET_STORES = LOCAL_HOST_STORE + 'all';
+
+export const LOCAL_HOST_ENTREPOT = LOCAL_HOST + '/entrepot/';
+
+export const LOCAL_HOST_ACCOUNT = LOCAL_HOST + '/account/';
+
+export const LOCAL_HOST_DELIVERY = LOCAL_HOST + '/delivery/';
+
+export const LOCAL_HOST_TRANSPORTATION = LOCAL_HOST + '/transportation/';
