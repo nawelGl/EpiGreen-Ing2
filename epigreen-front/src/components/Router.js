@@ -13,7 +13,7 @@ import Logs from "./Logs";
 import DemoLivraison from "./DemoLivraison";
 import DemoEcTransport from "./DemoEcTransport";
 import Livraison from "./Livraison";
-
+import FilterSearch from "./FilterSearch";
 
 export default function Router () {
     return (
@@ -32,7 +32,7 @@ export default function Router () {
                     <Route path="*" element={<NotFound />}/>
                     <Route path="/demoECTransport" element={<DemoEcTransport />} />
                     <Route path="/livraison" element={<Livraison />}/>
-
+                    <Route path="/filterSearch" element={<FilterSearch />}/>
                 </Routes>
             </div>
         </BrowserRouter>
