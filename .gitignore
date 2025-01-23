@@ -31,6 +31,4 @@ target/
 *.class
 *.jar
 *.lst
-*.pack
 /epigreen-front/node_modules
-/proto-front/node_modules
