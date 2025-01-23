@@ -17,9 +17,8 @@ public class TransportationMeanService {
     private TransportationMeanRepository transportationMeanRepository;
 
     public double calculateCarbonFootprint(String transportationType, double distance, String area) {
-
         logger.info("Distance: " + distance);
-       logger.info("Area: " + area);
+        logger.info("Area: " + area);
         logger.info("Transport Type: " + transportationType);
 
         Optional<TransportationMean> transportationMean = transportationMeanRepository
