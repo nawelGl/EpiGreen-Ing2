@@ -25,54 +25,6 @@ public class TransportationMeansDTO {
         this.area = area;
     }
 
-    // Getters et setters
-    public int getIdTransportationMeans() {
-        return idTransportationMeans;
-    }
-
-    public void setIdTransportationMeans(int idTransportationMeans) {
-        this.idTransportationMeans = idTransportationMeans;
-    }
-
-    public double getConsumption() {
-        return consumption;
-    }
-
-    public void setConsumption(double consumption) {
-        this.consumption = consumption;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public double getDistanceMin() {
-        return distanceMin;
-    }
-
-    public void setDistanceMin(double distanceMin) {
-        this.distanceMin = distanceMin;
-    }
-
-    public double getDistanceMax() {
-        return distanceMax;
-    }
-
-    public void setDistanceMax(double distanceMax) {
-        this.distanceMax = distanceMax;
-    }
-
-    public Area getArea() {
-        return area;
-    }
-
-    public void setArea(Area area) {
-        this.area = area;
-    }
 
     // Méthode toString
     @Override

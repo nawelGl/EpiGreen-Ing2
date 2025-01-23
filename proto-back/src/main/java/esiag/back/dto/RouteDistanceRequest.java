@@ -1,27 +1,15 @@
 package esiag.back.dto;
 
+import lombok.Data;
+
+@Data
 public class RouteDistanceRequest {
     private String transportationType; // Type de transport (ex. 'voiture')
     private double distance; // Distance calculée entre les villes (en kilomètres)
-
+    private String area ;
     // Constructeur
     public RouteDistanceRequest() {}
 
-    // Getters et Setters
-    public String getTransportationType() {
-        return transportationType;
-    }
 
-    public void setTransportationType(String transportationType) {
-        this.transportationType = transportationType;
-    }
-
-    public double getDistance() {
-        return distance;
-    }
-
-    public void setDistance(double distance) {
-        this.distance = distance;
-    }
 }
 

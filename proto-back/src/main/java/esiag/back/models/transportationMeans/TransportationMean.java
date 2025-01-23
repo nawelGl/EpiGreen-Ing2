@@ -25,9 +25,8 @@ public class TransportationMean {
     @Column(name = "distance_max", nullable = false)
     private double distanceMax;
 
-    @Enumerated(EnumType.STRING)
-    @Column(name = "aera", nullable = false)
-    private Area area;
+    @Column(name = "area", nullable = false)
+    private String area;
 
 }
 

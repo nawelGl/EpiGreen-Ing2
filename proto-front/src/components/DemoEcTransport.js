@@ -9,6 +9,7 @@ const DemoEcTransport = () => {
     const [processRoutes, setProcessRoutes] = useState([]);
     const [cityDetails, setCityDetails] = useState(null);
     const [error, setError] = useState(null);
+    const [distance, setDistance] = useState(null);
 
     const fetchProcessRoutes = async () => {
         if (!productId) {
@@ -17,7 +18,7 @@ const DemoEcTransport = () => {
         }
 
         try {
-            const response = await axios.get(GET_PROCESS_ROUTES_BY_PRODUCT+productId);
+            const response = await axios.get(GET_PROCESS_ROUTES_BY_PRODUCT + productId);
             setProcessRoutes(response.data);
             setCityDetails(null);
             setError(null);
@@ -49,33 +50,62 @@ const DemoEcTransport = () => {
                 carbonFootprint: route.carbonFootprint,
                 typeTransportation: route.typeTransportation,
             });
+            setDistance(null); // Réinitialiser la distance
         } catch (error) {
             console.error("Erreur lors de la récupération des détails du trajet :", error);
             setError("Impossible de récupérer les détails pour le trajet sélectionné.");
         }
     };
 
-        const calculateDistance = async () => {
-            if (!cityDetails?.fromCity || !cityDetails?.toCity) return alert("Veuillez sélectionner une route.");
+    const calculateDistance = async () => {
+        if (!cityDetails?.fromCity || !cityDetails?.toCity) return alert("Veuillez sélectionner une route.");
 
-            try {
-                const { features } = await getResultFromRoutingApi(
-                    [cityDetails.fromCity.latitude, cityDetails.fromCity.longitude],
-                    [cityDetails.toCity.latitude, cityDetails.toCity.longitude]
-                );
-                const distanceInKm = features[0]?.properties?.distance / 1000;
-                if (distanceInKm) {
-                    alert(`La distance entre ${cityDetails.fromCity.city} et ${cityDetails.toCity.city} est de ${distanceInKm} km.`);
-                } else {
-                    alert("La distance n'a pas pu être calculée.");
-                }
-            } catch (error) {
-                alert("Erreur lors du calcul de la distance.");
+        try {
+            const { features } = await getResultFromRoutingApi(
+                [cityDetails.fromCity.latitude, cityDetails.fromCity.longitude],
+                [cityDetails.toCity.latitude, cityDetails.toCity.longitude]
+            );
+            const distanceInKm = features[0]?.properties?.distance / 1000;
+            if (distanceInKm) {
+                setDistance(distanceInKm.toFixed(2));
+            } else {
+                alert("La distance n'a pas pu être calculée.");
             }
-        };
+        } catch (error) {
+            alert("Erreur lors du calcul de la distance.");
+        }
+    };
 
+    const calculateCarbonFootprint = async () => {
+        if (!cityDetails || !cityDetails.fromCity || !cityDetails.toCity) {
+            alert("Veuillez d'abord sélectionner une route.");
+            return;
+        }
 
-        return (
+        if (!distance) {
+            alert("Veuillez calculer la distance d'abord.");
+            return;
+        }
+        const route = processRoutes[0];
+        try {
+            const requestData = {
+                transportationType: route.typeTransportation,
+                distance: distance,
+                area: route.area,
+            };
+
+            const response = await axios.post('http://localhost:8080/api/transportation/calculateCarbonFootprint', requestData);
+
+            const carbonFootprint = response.data;
+            console.log(carbonFootprint);
+            alert(`Empreinte carbone calculée : ${carbonFootprint} kg éq.CO2.`);
+        } catch (error) {
+            console.error("Erreur lors du calcul de l'empreinte carbone :", error);
+            alert("Une erreur s'est produite lors du calcul de l'empreinte carbone. Veuillez réessayer.");
+        }
+    };
+
+    return (
         <div className="container">
             <h2>Demo EC Transport</h2>
             <div>
@@ -95,7 +125,7 @@ const DemoEcTransport = () => {
                 <table className="table table-bordered table-hover">
                     <thead>
                     <tr>
-                        <th>ID Route</th>
+                        <th>ID Trajet</th>
                         <th>Type de Transport</th>
                         <th>Ville de Départ</th>
                         <th>Ville d'Arrivée</th>
@@ -121,26 +151,43 @@ const DemoEcTransport = () => {
             )}
             <br />
             {cityDetails && (
-                <div className="city-details">
+                <div>
                     <h3>Détails du Trajet Sélectionné :</h3>
+                    <table className="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Départ</th>
+                            <th>Arrivée</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <p><strong>Ville :</strong> {cityDetails.fromCity.city}</p>
+                                <p><strong>Pays :</strong> {cityDetails.fromCity.country}</p>
+                                <p><strong>Latitude :</strong> {cityDetails.fromCity.latitude}</p>
+                                <p><strong>Longitude :</strong> {cityDetails.fromCity.longitude}</p>
+                            </td>
+                            <td>
+                                <p><strong>Ville :</strong> {cityDetails.toCity.city}</p>
+                                <p><strong>Pays :</strong> {cityDetails.toCity.country}</p>
+                                <p><strong>Latitude :</strong> {cityDetails.toCity.latitude}</p>
+                                <p><strong>Longitude :</strong> {cityDetails.toCity.longitude}</p>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                     <p><strong>Type de Transport :</strong> {cityDetails.typeTransportation}</p>
-                    <p><strong>Ville de Départ :</strong> {cityDetails.fromCity.city}</p>
-                    <p><strong> Pays (Départ) :</strong> {cityDetails.fromCity.country}</p>
-                    <p><strong> Latitude (Départ) :</strong> {cityDetails.fromCity.latitude}</p>
-                    <p><strong> Longitude (Départ) :</strong> {cityDetails.fromCity.longitude}</p>
-                    <p><strong>Ville d'Arrivée :</strong> {cityDetails.toCity.city}</p>
-                    <p><strong>Latitude (Arrivée) :</strong> {cityDetails.toCity.latitude}</p>
-                    <p><strong>Longitude (Arrivée) :</strong> {cityDetails.toCity.longitude}</p>
-                    <p><strong>Pays (Arrivée) :</strong> {cityDetails.toCity.country}</p>
-                    <p><strong>Empreinte Carbone :</strong> {cityDetails.carbonFootprint}</p>
-
-                    <button onClick={calculateDistance}> Calculer la distance </button>
+                    <p><strong>Empreinte Carbone :</strong> {cityDetails.carbonFootprint} kg CO2</p>
+                    {distance && <p><strong>Distance :</strong> {distance} km</p>}
+                    <div>
+                        <button onClick={calculateDistance}>Calculer la distance</button>
+                        <button onClick={calculateCarbonFootprint}>Calculer l'empreinte carbone</button>
+                    </div>
                 </div>
-                )}
-</div>
-)
-;
-}
-;
+            )}
+        </div>
+    );
+};
 
 export default DemoEcTransport;

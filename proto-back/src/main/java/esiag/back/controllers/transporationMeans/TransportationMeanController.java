@@ -12,15 +12,15 @@ public class TransportationMeanController {
 
     @Autowired
     private TransportationMeanService transportationMeanService;
-/**
+
     @PostMapping("/calculateCarbonFootprint")
     public ResponseEntity<Double> calculateCarbonFootprint(@RequestBody RouteDistanceRequest request) {
         try {
-            double carbonFootprint = transportationMeanService.calculateCarbonFootprint(request.getTransportationType(), request.getDistance());
+            double carbonFootprint = transportationMeanService.calculateCarbonFootprint(request.getTransportationType(), request.getDistance(), request.getArea());
             return ResponseEntity.ok(carbonFootprint);
         } catch (IllegalArgumentException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
-    */
+
 }
