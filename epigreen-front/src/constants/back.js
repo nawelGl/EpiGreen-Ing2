@@ -12,6 +12,11 @@ export const SEARCH_SERVICE={
     findSimilarProducts: SEARCH_API,
 }
 
+
+//product service endpoints
+
+export const GET_PRODUCT_BY_ID = LOCAL_HOST+'/{id}';
+
 //sample service endpoints
 export const LOCAL_HOST_SAMPLE = LOCAL_HOST + '/sample/';
 export const GET_SAMPLES = LOCAL_HOST_SAMPLE + 'all';
