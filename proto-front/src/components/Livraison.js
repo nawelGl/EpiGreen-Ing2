@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { getResultFromGeocodingApi, getResultFromRoutingApi } from "../api/Geoapify";
 import { getDeliveryById } from "./Delivery";
+import {getDeliveryScore, calculateCo2} from "./DeliveryScoring";
 
 export default function Livraison() {
     // Choose a delivery to calculate its carbon footprint
@@ -14,6 +15,7 @@ export default function Livraison() {
     const [transportation, setTransportation] = useState(null);
 
     const [distance, setDistance] = useState(null);
+    const [score, setScore] = useState(null);
 
     const [customerCoordinates, setCustomerCoordinates] = useState({
         latitude: null,
@@ -98,10 +100,6 @@ export default function Livraison() {
     };
 
 
-    const calculateCo2Quantity = async () => {
-        setCO2quantity(distance * transportation.kgCo2);
-    };
-
     // After getting customer and entrepot's data, fetching their coordonates
     useEffect(() => {
         if (customer) {
@@ -126,11 +124,22 @@ export default function Livraison() {
     }, [customerCoordinates.latitude, customerCoordinates.longitude,
     entrepotCoordinates.latitude, entrepotCoordinates.longitude]);
 
+
+    // Calculate delivry's CO2 quantity and score
     useEffect(() => {
-        if (distance) {
-            calculateCo2Quantity();
+        if (distance && transportation) {
+            const fetchScore = async () => {
+                // Calculate carbon footprint
+                const carbonFootprint = await calculateCo2(distance, transportation.kgCo2);
+                setCO2quantity(carbonFootprint);
+
+                // Get carbon footprint's score
+                 setScore(await getDeliveryScore(carbonFootprint));
+            };
+            fetchScore();
         }
-    }, [distance]);
+    }, [distance, transportation]);
+
 
 
     // Display
@@ -167,6 +176,7 @@ export default function Livraison() {
                     <br/>
                     <p><strong>Distance parcourue lors de la livraison :</strong> {distance} km.<br/></p>
                     <p><strong>Co2 engendré par cette livraison :</strong> {cO2quantity} kgCo2.<br/></p>
+                    <p><strong>Score carbone de la livraison : </strong> {score}.<br/></p>
                 </div>
             )}
         </div>
