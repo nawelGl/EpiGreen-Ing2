@@ -66,21 +66,6 @@
       <version>3.8.1</version>
       <scope>test</scope>
     </dependency>
-
-    <!--Ajout de la dépendance jackson : permet de lire du JSON, notamment pour les données de l'API -->
-    <!-- https://mvnrepository.com/artifact/com.fasterxml.jackson.core/jackson-databind -->
-    <dependency>
-      <groupId>com.fasterxml.jackson.core</groupId>
-      <artifactId>jackson-databind</artifactId>
-    </dependency>
-
-    <!--Ajout de la dépendance log4j pour les logs-->
-    <!-- https://mvnrepository.com/artifact/org.apache.logging.log4j/log4j-core -->
-    <dependency>
-      <groupId>org.apache.logging.log4j</groupId>
-      <artifactId>log4j-core</artifactId>
-      <version>2.17.1</version>
-    </dependency>
   </dependencies>
 
   <!--Ajout du plugin exec:java-->
