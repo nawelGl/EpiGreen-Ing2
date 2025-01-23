@@ -20,8 +20,8 @@ public class SearchService {
     public List<Product> findSimilarProducts(String keywords) {
 
         LOGGER.info("keywords:"+keywords);
-        List<Product> products = productRepository.findAll(); // Charger tous les produits
-        List<String> keywordList = List.of(keywords.toLowerCase().split(" ")); // Diviser les mots-clés
+        List<Product> products = productRepository.findAll(); // get all products to compare the simility
+        List<String> keywordList = List.of(keywords.toLowerCase().split(" ")); // split keywords in words
 
         // Liste pour stocker les résultats
         List<Product> similarProducts = new ArrayList<>();
