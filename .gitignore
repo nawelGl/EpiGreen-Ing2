@@ -31,5 +31,8 @@ target/
 *.class
 *.jar
 *.lst
-/epigreen-front/node_modules
+
+*.pack
+/epigreen-front/node_modules/
+
 /.vscode
