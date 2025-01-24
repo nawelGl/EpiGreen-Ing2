@@ -32,3 +32,4 @@ target/
 *.jar
 *.lst
 /epigreen-front/node_modules
+/.vscode
