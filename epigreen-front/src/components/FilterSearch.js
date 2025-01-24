@@ -101,6 +101,11 @@ export default function FilterSearch(){
                         </ul>
                     </div>
                 )}
+                {results!==null && results.length === 0 &&(
+                    <div style={{ color: "red", marginTop: "20px" }}>
+                        <p>le produit n'existe pas</p>
+                    </div>
+                )}
 
             </div>
 </div>

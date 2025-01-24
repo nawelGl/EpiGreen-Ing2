@@ -8,12 +8,16 @@ export default function Similarity() {
     const [productId1, setProductId1]= useState("");
     const [productId2, setProductId2]= useState("");
     const [result, setResult] = useState(null); // Stocker le résultat du backend
-    const [product1, setProduct1] = useState(null);
-    const [product2, setProduct2] =useState(null);
+    const [product1, setProduct1] = useState(null); //information product 1
+    const [product2, setProduct2] =useState(null); // information product 2
+    const [errorMessage, setErrorMessage]=useState(""); //error message
 
     const handleSearch = async ()=>{
         console.log("Product id1: ",productId1);
         console.log("Product id2: ",productId2);
+
+        setErrorMessage("");
+
         try {
             // calculate similarity score of products (two)
             // transition to URL-encoded
@@ -36,7 +40,15 @@ export default function Similarity() {
 
         } catch (error) {
             console.error("Erreur lors de la recherche :", error);
-            alert("Une erreur est survenue lors de la recherche.");
+            if (error.response){
+                if(error.response.status===404){
+                    setErrorMessage("product n'exsite pas")
+                }else{
+                    setErrorMessage("Veuillez saisir les ID de produit");
+                }
+            }else{
+                setErrorMessage("Network error");
+            }
         }
     };
     const handleKeyPress = (e) => {
@@ -71,6 +83,12 @@ export default function Similarity() {
                 /><br/>
                 <button onClick={handleSearch}>Enter</button>
             </div>
+            {/* error msg*/}
+            {errorMessage && (
+                <div style={{ color: "red", marginTop: "20px" }}>
+                    <p>{errorMessage}</p>
+                </div>
+            )}
             <div>
                 {result !== null && (
                     <div>
@@ -102,6 +120,16 @@ export default function Similarity() {
                                 <p>Color: {product2.color}</p>
                                 <p>Material: {product2.material}</p>
                                 <p>Price: ${product2.price}</p>
+                            </div>
+                        )}
+                        {product1!==null && product1.length === 0  &&(
+                            <div style={{ color: "red", marginTop: "20px" }}>
+                                <p>le produit 1 n'existe pas</p>
+                            </div>
+                        )}
+                        {product2 !==null && product2.length === 0  &&(
+                            <div style={{ color: "red", marginTop: "20px" }}>
+                                <p>le produit 2 n'existe pas</p>
                             </div>
                         )}
                     </div>
