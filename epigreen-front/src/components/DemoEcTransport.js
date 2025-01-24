@@ -94,7 +94,7 @@ const DemoEcTransport = () => {
                 area: route.area,
             };
 
-            const response = await axios.post('http://localhost:8080/api/transportation/calculateCarbonFootprint', requestData);
+            const response = await axios.post('http://localhost:8081/api/transportation/calculateCarbonFootprint', requestData);
 
             const carbonFootprint = response.data;
             console.log(carbonFootprint);
