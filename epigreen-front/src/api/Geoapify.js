@@ -11,7 +11,10 @@ export const getResultFromRoutingApiNaw = async (fromWaypoint, toWaypoint) => {
     const myAPIKey = "c81205a4fb97473b93dd0df61a9838c6";
     const url = `https://api.geoapify.com/v1/routing?waypoints=${fromWaypoint.join(",")}|${toWaypoint.join(",")}&mode=drive&details=instruction_details&apiKey=${myAPIKey}`;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const data = "Bonjour depuis Page1!";
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
     const response = await axios.get(url);
