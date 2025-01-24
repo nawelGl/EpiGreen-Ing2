@@ -41,8 +41,9 @@ export default function Search() {
 
     return (
         <div className="container text-center">
-            <h1>Recherche</h1>
+            <h2>Recherche de produit avec les mots de clés</h2>
             <div className="search-bar">
+                <label>Mots de clés : </label>
                 <input
                     type="text"
                     placeholder="Que cherchez vous?"
@@ -53,14 +54,16 @@ export default function Search() {
                     }} // Détection de la touche "Enter"
                 />
                 <button onClick={handleSearch}>Enter</button>
+                <br/>
             </div>
             <button onClick={FilterSearch} style={{ marginTop: "20px"}}>
                 Recherche avec filtres
             </button>
+            <br/>
             <div>
                 {results !== null && (
                     <div>
-                        <h2>produits d'après votre recherche:</h2>
+                        <h3>produits d'après votre recherche:</h3>
                         <ul>
                             {results.map((product,index)=>(
                                 product !==null &&(

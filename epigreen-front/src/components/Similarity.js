@@ -61,8 +61,9 @@ export default function Similarity() {
     // return of result
     return (
         <div className="container text-center">
-            <h1>Similarity Search</h1><br/>
+            <h2>Similarity Search</h2><br/>
             <div className="search-bar">
+                <label>Produit 1:</label>
                 <input
                     type="text"
                     placeholder="first product id "
@@ -71,7 +72,8 @@ export default function Similarity() {
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') handleSearch();
                     }} // Détection de la touche "Enter"
-                /><br/>
+                    /><br/>
+                <label>Produit 2:</label>
                 <input
                     type="text"
                     placeholder="second product id "
@@ -81,7 +83,7 @@ export default function Similarity() {
                         if (e.key === 'Enter') handleSearch();
                     }} // Détection de la touche "Enter"
                 /><br/>
-                <button onClick={handleSearch}>Enter</button>
+                <button onClick={handleSearch}>Entrer les ID</button>
             </div>
             {/* error msg*/}
             {errorMessage && (
