@@ -2,6 +2,7 @@ package esiag.back.models.delivery;
 
 import esiag.back.models.account.Account;
 import esiag.back.models.entrepot.Entrepot;
+import esiag.back.models.sample.SampleType;
 import esiag.back.models.transportation.Transportation;
 import lombok.Data;
 import javax.persistence.*;
@@ -28,4 +29,7 @@ public class Delivery {
     @JoinColumn(name = "transportation_id", referencedColumnName = "transportation_id", nullable = false)
     private Transportation transportation;
 
+    @Enumerated(EnumType.STRING)
+    @Column(name = "delivery_method")
+    private DeliveryMethod deliveryMethod;
 }

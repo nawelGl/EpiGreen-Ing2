@@ -15,8 +15,12 @@ export const GET_STORES = LOCAL_HOST_STORE + 'all';
 export const LOCAL_HOST_ENTREPOT = LOCAL_HOST + '/entrepot/';
 
 export const LOCAL_HOST_ACCOUNT = LOCAL_HOST + '/account/';
+export const GET_ACCOUNTS = LOCAL_HOST_ACCOUNT + 'all';
 
 export const LOCAL_HOST_DELIVERY = LOCAL_HOST + '/delivery/';
+export const GET_DELIVERY = LOCAL_HOST_DELIVERY + 'all';
+export const UPDATE_DELIVERY = LOCAL_HOST_DELIVERY + 'update_method';
+
 
 export const LOCAL_HOST_TRANSPORTATION = LOCAL_HOST + '/transportation/';
 export const LOCAL_HOST_TRANSPORTATION_MAX_CO2 = LOCAL_HOST_TRANSPORTATION + 'max-co2/';
@@ -27,3 +31,4 @@ export const LOCAL_HOST_DELIVERY_SCORING_API_CO2 = LOCAL_HOST_DELIVERY_SCORING_A
 
 export const LOCAL_HOST_ACCOUNT_MANAGER = LOCAL_HOST + '/api/account-manager/';
 export const LOCAL_HOST_ACCOUNT_MANAGER_POINTS = LOCAL_HOST_ACCOUNT_MANAGER + 'add-points';
+export const LOCAL_HOST_ACCOUNT_MANAGER_UPDATE_POINTS = LOCAL_HOST_ACCOUNT_MANAGER + 'update-points';

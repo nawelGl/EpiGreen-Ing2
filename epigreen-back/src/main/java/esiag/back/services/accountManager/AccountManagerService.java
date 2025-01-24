@@ -13,15 +13,15 @@ public class AccountManagerService {
         int accountPoints = account.getEcologyPoints();
         //TODO : ajouter nombre de points dans accountPoints selon une logique.
         switch (score){
-            case 'A' : //100   50
+            case 'A' : accountPoints += 50;
                 break;
-            case 'B' : //80    40
+            case 'B' : accountPoints += 40;
                 break;
-            case 'C' : //50    20
+            case 'C' : accountPoints += 20;
                 break;
-            case 'D' : //10    5
+            case 'D' : accountPoints += 5;
                 break;
-            case 'E' : //0     0
+            default:
                 break;
         }
         account.setEcologyPoints(accountPoints);

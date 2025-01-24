@@ -6,7 +6,7 @@ import DemoLivraison from "./DemoLivraison";
 import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import Customer from "./Customer";
-import Store from "./Store";
+import Account from "./Account";
 import Livraison from "./Livraison";
 
 export default function Router () {
@@ -18,7 +18,7 @@ export default function Router () {
                     <Route path="/" element={<App />}/>
                     <Route path="/sample" element={<Sample />}/>
                     <Route path="/customer" element={<Customer />}/>
-                    <Route path="/store" element={<Store />}/>
+                    <Route path="/account" element={<Account />}/>
                     <Route path="/demoLivraison" element={<DemoLivraison />}/>
                     <Route path="/livraison" element={<Livraison />}/>
                     <Route path="*" element={<NotFound />}/>

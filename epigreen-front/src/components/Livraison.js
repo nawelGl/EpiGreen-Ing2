@@ -1,7 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { getResultFromGeocodingApi, getResultFromRoutingApi } from "../api/Geoapify";
-import { getDeliveryById } from "./Delivery";
+import { getDeliveryById, updateDeliveryMethod } from "./Delivery";
 import {getDeliveryScore, calculateCo2} from "./DeliveryScoring";
+import axios from "axios";
+import {addPointsToAccount} from "./AccountManager";
 
 export default function Livraison() {
     // Choose a delivery to calculate its carbon footprint
@@ -28,9 +30,12 @@ export default function Livraison() {
 
     const [cO2quantity, setCO2quantity] = useState(null);
 
+    //Choose a Delivery Method
+    const [deliveryMethod, setDeliveryMethod] = useState("");
+
 
     // ===== Fetching objects' data from delivery =====
-    // Function to fetch delivery data
+    // Fetch delivery data
     const fetchDeliveryData = async () => {
         try {
             const deliveryData = await getDeliveryById(deliveryId);
@@ -122,7 +127,7 @@ export default function Livraison() {
             callRoutingApi();
         }
     }, [customerCoordinates.latitude, customerCoordinates.longitude,
-    entrepotCoordinates.latitude, entrepotCoordinates.longitude]);
+        entrepotCoordinates.latitude, entrepotCoordinates.longitude]);
 
 
     // Calculate delivry's CO2 quantity and score
@@ -134,11 +139,42 @@ export default function Livraison() {
                 setCO2quantity(carbonFootprint);
 
                 // Get carbon footprint's score
-                 setScore(await getDeliveryScore(carbonFootprint));
+                setScore(await getDeliveryScore(carbonFootprint));
             };
             fetchScore();
         }
     }, [distance, transportation]);
+
+    useEffect(() => {
+        if (deliveryMethod) {
+            addPointsToAccount();
+        }
+    }, [deliveryMethod]);
+
+
+    const handleUpdateDeliveryMethod = async (method) => {
+        if (!window.confirm(`Confirmez-vous le mode de livraison : ${method} ?`)) return;
+
+        try {
+            await updateDeliveryMethod({
+                deliveryId: deliveryId,
+                deliveryMethod: method,
+            });
+
+            const response = await addPointsToAccount(score, account);
+            if (response) {
+                alert("Mode de livraison et points mis à jour avec succès !");
+            } else {
+                alert("Mode de livraison mis à jour, mais erreur lors de l'ajout des points.");
+            }
+
+            // Met à jour l'état local
+            setDeliveryMethod(method);
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour :", error);
+            alert("Erreur lors de la mise à jour du mode de livraison.");
+        }
+    };
 
 
 
@@ -177,6 +213,9 @@ export default function Livraison() {
                     <p><strong>Distance parcourue lors de la livraison :</strong> {distance} km.<br/></p>
                     <p><strong>Co2 engendré par cette livraison :</strong> {cO2quantity} kgCo2.<br/></p>
                     <p><strong>Score carbone de la livraison : </strong> {score}.<br/></p>
+                    <br/>
+                    <br/>
+                    <button onClick={() => handleUpdateDeliveryMethod("DOMICILE")}>Choisir ce mode de livraison</button>
                 </div>
             )}
         </div>

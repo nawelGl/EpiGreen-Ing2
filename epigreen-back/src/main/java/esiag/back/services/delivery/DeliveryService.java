@@ -22,4 +22,15 @@ public class DeliveryService {
         return deliveryRepository.findAll();
     }
 
+    public boolean updateDeliveryMethod(Delivery updatedDelivery) {
+        Optional<Delivery> optionalDelivery = deliveryRepository.findById(updatedDelivery.getDeliveryId());
+        if(optionalDelivery.isPresent()){
+            Delivery delivery = optionalDelivery.get();
+            delivery.setDeliveryMethod(updatedDelivery.getDeliveryMethod());
+            deliveryRepository.saveAndFlush(delivery);
+            return true;
+        }
+        return false;
+    }
+
 }
