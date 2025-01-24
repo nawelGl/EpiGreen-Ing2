@@ -11,6 +11,8 @@ import java.util.List;
 
 @Repository
 public interface SampleRepository extends JpaRepository<Sample, Long> {
+
+    //methode particulier
     @Query(value="SELECT * FROM Sample AS s ORDER BY s.date_sample DESC LIMIT 1", nativeQuery = true)
     Sample findLastSampleByDate();
 
