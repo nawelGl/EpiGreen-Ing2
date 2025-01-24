@@ -15,8 +15,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT p FROM Product p " +
             "WHERE (:section IS NULL OR p.section = :section) " +
-            "AND (:category IS NULL OR p.category = :category) " +
-            "AND (:color IS NULL OR p.color = :color) " +
+            "AND (:category IS NULL OR  p.category = :category) " +
+            "AND (:color IS NULL OR  p.color = :color) " +
             "AND (:size IS NULL OR p.size = :size) " +
             "AND (:price IS NULL OR p.price = :price)")
     List<Product> findProductsByFilters(

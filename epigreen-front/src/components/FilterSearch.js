@@ -25,7 +25,7 @@ export default function FilterSearch(){
                 category: filters.category|| null,
                 color: filters.color|| null,
                 size: filters.size|| null,
-                price: filters.price ? parseInt(filters.price) : null, //
+                price: filters.price? parseInt(filters.price) : null, //
             });
 
             const response = await axios.post(SEARCH_SERVICE.filterProducts,params);
@@ -51,15 +51,15 @@ export default function FilterSearch(){
             </select>
             <select name="category" value={filters.category} onChange={handleFilter}>
                 <option value="">Category</option>
-                <option value="T-shirt">T-shirt</option>
+                <option value="Pull">Pull</option>
                 <option value="Pantalon">Pantalon</option>
                 <option value="Robe">Robe</option>
             </select>
             <select name="color" value={filters.color} onChange={handleFilter}>
                 <option value="">Color</option>
                 <option value="Rouge">Rouge</option>
-                <option value="Bleu">Bleu</option>
-                <option value="Vert">Vert</option>
+                <option value="Noir">Bleu</option>
+                <option value="Bleu">Vert</option>
             </select>
             <select name="size" value={filters.size} onChange={handleFilter}>
                 <option value="">Size</option>
@@ -70,8 +70,8 @@ export default function FilterSearch(){
             <select name="price" value={filters.price} onChange={handleFilter}>
                 <option value="">Price</option>
                 <option value="10">10€</option>
-                <option value="20">20€</option>
                 <option value="30">30€</option>
+                <option value="50">50€</option>
             </select>
             <button onClick={applyFilters} style={{marginTop: "20px"}}>
                 Appliquer des filtres
@@ -85,7 +85,7 @@ export default function FilterSearch(){
                         <ul>
                             {results.map((product, index) => (
                                 product !== null && (
-                                    <li> key={product.IdProduct}>
+                                    <li key={product.IdProduct}>
                                         ID: {product.IdProduct}<br/>
                                         Reference:{product.reference}<br/>
                                         Section:{product.section}<br/>
@@ -97,10 +97,10 @@ export default function FilterSearch(){
                                 )
 
                             ))}
-
                         </ul>
                     </div>
                 )}
+
             </div>
 </div>
 

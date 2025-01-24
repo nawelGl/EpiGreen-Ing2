@@ -19,6 +19,12 @@ public class ProductService {
         return product.orElse(null);
     }
     public List<Product> filterProducts(String section, String category, String color, String size, Integer price){
-        return productRepository.findProductsByFilters(section,category,color,size,price);
+        List<Product> products=productRepository.findProductsByFilters(section,category,color,size,price);
+        if (products == null || products.isEmpty()) {
+            System.out.println("ProductService: pas de products trouvés avec filtres.");
+        } else {
+            System.out.println("ProductService: Products trouvés: " + products);
+        }
+        return products;
     }
 }

@@ -32,11 +32,20 @@ public class ProductController {
             @RequestParam(required = false) String color,
             @RequestParam(required = false) String size,
             @RequestParam(required = false) Integer price) {
-        System.out.println("Filters Received: section=" + section + ", category=" + category +
+
+
+        System.out.println("ProducController: Filters Received: section=" + section + ", category=" + category +
                 ", color=" + color + ", size=" + size + ", price=" + price);
 
-        List<Product> filteredProducts = productService.filterProducts(section, category, color, size, price);
-        return ResponseEntity.ok(filteredProducts);
-    }
+        try {
+            List<Product> filteredProducts = productService.filterProducts(section, category, color, size, price);
+            System.out.println("ProductController: Filtered Products: " + filteredProducts);
+            return ResponseEntity.ok(filteredProducts);
+        } catch (Exception e) {
+            System.err.println("ProductController: Error occurred while filtering products.");
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
 
+    }
 }
