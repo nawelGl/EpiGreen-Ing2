@@ -15,7 +15,7 @@ public class AccountManagerController {
 
     @PostMapping("/update-points")
     public ResponseEntity<String> addEcologyPointsDelivery(
-            @RequestParam("score") Character score,
+            @RequestParam("score") char score,
             @RequestBody Account account) {
         try {
             accountManagerService.addEcologyPointsDelivery(score, account);
@@ -24,4 +24,5 @@ public class AccountManagerController {
             return ResponseEntity.status(500).body("Erreur lors de l'ajout des points : " + e.getMessage());
         }
     }
+
 }

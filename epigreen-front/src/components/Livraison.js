@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { getResultFromGeocodingApi, getResultFromRoutingApi } from "../api/Geoapify";
 import { getDeliveryById, updateDeliveryMethod } from "./Delivery";
 import {getDeliveryScore, calculateCo2} from "./DeliveryScoring";
-import axios from "axios";
 import {addPointsToAccount} from "./AccountManager";
 
 export default function Livraison() {
@@ -161,20 +160,25 @@ export default function Livraison() {
                 deliveryMethod: method,
             });
 
-            const response = await addPointsToAccount(score, account);
-            if (response) {
-                alert("Mode de livraison et points mis à jour avec succès !");
+            if (score && account) {
+
+                const response = await addPointsToAccount(score, account);
+                if (response) {
+                    alert("Mode de livraison et points mis à jour avec succès !");
+                } else {
+                    alert("Mode de livraison mis à jour, mais erreur lors de l'ajout des points.");
+                }
             } else {
-                alert("Mode de livraison mis à jour, mais erreur lors de l'ajout des points.");
+                alert("Erreur : Score ou compte manquant.");
             }
 
-            // Met à jour l'état local
             setDeliveryMethod(method);
         } catch (error) {
             console.error("Erreur lors de la mise à jour :", error);
             alert("Erreur lors de la mise à jour du mode de livraison.");
         }
     };
+
 
 
 
