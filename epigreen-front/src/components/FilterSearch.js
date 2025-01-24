@@ -21,10 +21,10 @@ export default function FilterSearch(){
         try{
 
             const params = new URLSearchParams({
-                section: filters.section || null,
-                category: filters.category|| null,
-                color: filters.color|| null,
-                size: filters.size|| null,
+                section: filters.section !== "" ? filters.section:null ,
+                category: filters.category !== "" ? filters.category: null,
+                color: filters.color !== "" ? filters.color:null,
+                size: filters.size !== "" ? filters.size: null,
                 price: filters.price? parseInt(filters.price) : null, //
             });
 
@@ -72,6 +72,7 @@ export default function FilterSearch(){
                 <option value="10">10€</option>
                 <option value="30">30€</option>
                 <option value="50">50€</option>
+                <option value="80">80€</option>
             </select>
             <button onClick={applyFilters} style={{marginTop: "20px"}}>
                 Appliquer des filtres
@@ -85,8 +86,8 @@ export default function FilterSearch(){
                         <ul>
                             {results.map((product, index) => (
                                 product !== null && (
-                                    <li key={product.IdProduct}>
-                                        ID: {product.IdProduct}<br/>
+                                    <li key={product.idProduct}>
+                                        ID: {product.idProduct}<br/>
                                         Reference:{product.reference}<br/>
                                         Section:{product.section}<br/>
                                         Category:{product.category}<br/>

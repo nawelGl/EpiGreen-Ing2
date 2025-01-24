@@ -64,8 +64,8 @@ export default function Search() {
                         <ul>
                             {results.map((product,index)=>(
                                 product !==null &&(
-                                    <li> key={product.IdProduct}>
-                                        ID: {product.IdProduct}<br/>
+                                    <li key={product.idProduct}>
+                                        ID: {product.idProduct}<br/>
                                         Reference:{product.reference}<br/>
                                         Section:{product.section}<br/>
                                         Category:{product.category}<br/>
