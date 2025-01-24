@@ -2,14 +2,17 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import {GET_PROCESS_ROUTES_BY_PRODUCT} from "../constants/back";
-import {getResultFromGeocodingApi, getResultFromRoutingApi} from "../api/Geoapify";
+import {getResultFromGeocodingApi, getResultFromRoutingApiNaw} from "../api/Geoapify";
 
 const DemoEcTransport = () => {
     const [productId, setProductId] = useState("");
     const [processRoutes, setProcessRoutes] = useState([]);
-    const [cityDetails, setCityDetails] = useState(null);
+    const [routeSelectedDetails, setRouteSelectedDetails] = useState(null);
     const [error, setError] = useState(null);
     const [distance, setDistance] = useState(null);
+    const [carbonFootprintCalculated, setCarbonFootprint] = useState(null);
+
+
 
     const fetchProcessRoutes = async () => {
         if (!productId) {
@@ -20,7 +23,7 @@ const DemoEcTransport = () => {
         try {
             const response = await axios.get(GET_PROCESS_ROUTES_BY_PRODUCT + productId);
             setProcessRoutes(response.data);
-            setCityDetails(null);
+            setRouteSelectedDetails(null);
             setError(null);
         } catch (error) {
             console.error("Erreur lors de la récupération des trajets :", error);
@@ -30,11 +33,13 @@ const DemoEcTransport = () => {
     };
 
     const fetchCityDetails = async (route) => {
+
         try {
             const fromCityResponse = await getResultFromGeocodingApi(route.cityDep);
             const toCityResponse = await getResultFromGeocodingApi(route.cityArr);
 
-            setCityDetails({
+            setRouteSelectedDetails({
+                idProcessRoutes: route.idProcessRoutes,
                 fromCity: {
                     city: route.cityDep,
                     latitude: fromCityResponse.features[0]?.properties.lat,
@@ -50,7 +55,7 @@ const DemoEcTransport = () => {
                 carbonFootprint: route.carbonFootprint,
                 typeTransportation: route.typeTransportation,
             });
-            setDistance(null); // Réinitialiser la distance
+            setDistance(null); 
         } catch (error) {
             console.error("Erreur lors de la récupération des détails du trajet :", error);
             setError("Impossible de récupérer les détails pour le trajet sélectionné.");
@@ -58,12 +63,12 @@ const DemoEcTransport = () => {
     };
 
     const calculateDistance = async () => {
-        if (!cityDetails?.fromCity || !cityDetails?.toCity) return alert("Veuillez sélectionner une route.");
+        if (!routeSelectedDetails?.fromCity || !routeSelectedDetails?.toCity) return alert("Veuillez sélectionner une route.");
 
         try {
-            const { features } = await getResultFromRoutingApi(
-                [cityDetails.fromCity.latitude, cityDetails.fromCity.longitude],
-                [cityDetails.toCity.latitude, cityDetails.toCity.longitude]
+            const { features } = await getResultFromRoutingApiNaw(
+                [routeSelectedDetails.fromCity.latitude, routeSelectedDetails.fromCity.longitude],
+                [routeSelectedDetails.toCity.latitude, routeSelectedDetails.toCity.longitude]
             );
             const distanceInKm = features[0]?.properties?.distance / 1000;
             if (distanceInKm) {
@@ -77,7 +82,7 @@ const DemoEcTransport = () => {
     };
 
     const calculateCarbonFootprint = async () => {
-        if (!cityDetails || !cityDetails.fromCity || !cityDetails.toCity) {
+        if (!routeSelectedDetails || !routeSelectedDetails.fromCity || !routeSelectedDetails.toCity) {
             alert("Veuillez d'abord sélectionner une route.");
             return;
         }
@@ -94,9 +99,10 @@ const DemoEcTransport = () => {
                 area: route.area,
             };
 
-            const response = await axios.post('http://localhost:8080/api/transportation/calculateCarbonFootprint', requestData);
+            const response = await axios.post('http://localhost:8081/api/transportationMean/calculateCarbonFootprint', requestData);
 
             const carbonFootprint = response.data;
+            setCarbonFootprint(carbonFootprint);
             console.log(carbonFootprint);
             alert(`Empreinte carbone calculée : ${carbonFootprint} kg éq.CO2.`);
         } catch (error) {
@@ -104,6 +110,54 @@ const DemoEcTransport = () => {
             alert("Une erreur s'est produite lors du calcul de l'empreinte carbone. Veuillez réessayer.");
         }
     };
+
+    const updateCarbonFootprintRoute = async () => {
+        if (!distance) {
+            alert("Veuillez calculer la distance d'abord.");
+            return;
+        }
+     // get the route selected
+        const route = processRoutes.find(route => route.idProcessRoutes === routeSelectedDetails.idProcessRoutes);
+        if (!route) {
+            alert("La route sélectionnée est introuvable.");
+            return;
+        }
+    
+        // Use of carbonFootprintCalculated const wich was calculated 
+        if (carbonFootprintCalculated === null) {
+            alert("L'empreinte carbone n'a pas été calculée.");
+            return;
+        }
+    
+        // Mise à jour de l'empreinte carbone dans cityDetails
+        routeSelectedDetails.carbonFootprint = carbonFootprintCalculated;
+        console.log("cityDetails.carbonFootprint:", routeSelectedDetails.carbonFootprint);
+    
+        // Mise à jour de l'empreinte carbone de la route
+        route.carbonFootprint = routeSelectedDetails.carbonFootprint;
+        console.log("route.carbonFootprint:", route.carbonFootprint);
+    
+        try {
+            // Update of carbon footprint 
+            await axios.post('http://localhost:8081/processroute/update', route);
+            alert("Empreinte carbone mise à jour avec succès !");
+    
+            // MAJ list of routes
+            setProcessRoutes((prevRoutes) =>
+                prevRoutes.map((r) =>
+                    r.idProcessRoutes === route.idProcessRoutes ? route : r
+                )
+            );
+            setRouteSelectedDetails(null); 
+        } catch (error) {
+            console.error("Erreur lors de la mise à jour de l'empreinte carbone :", error);
+            alert("Une erreur s'est produite lors de la mise à jour. Veuillez réessayer.");
+        }
+    };
+    
+    
+    
+    
 
     return (
         <div className="container">
@@ -150,7 +204,7 @@ const DemoEcTransport = () => {
                 !error && <p>Aucune route trouvée pour cet ID produit.</p>
             )}
             <br />
-            {cityDetails && (
+            {routeSelectedDetails && (
                 <div>
                     <h3>Détails du Trajet Sélectionné :</h3>
                     <table className="table table-bordered">
@@ -163,26 +217,28 @@ const DemoEcTransport = () => {
                         <tbody>
                         <tr>
                             <td>
-                                <p><strong>Ville :</strong> {cityDetails.fromCity.city}</p>
-                                <p><strong>Pays :</strong> {cityDetails.fromCity.country}</p>
-                                <p><strong>Latitude :</strong> {cityDetails.fromCity.latitude}</p>
-                                <p><strong>Longitude :</strong> {cityDetails.fromCity.longitude}</p>
+                                <p><strong>Ville :</strong> {routeSelectedDetails.fromCity.city}</p>
+                                <p><strong>Pays :</strong> {routeSelectedDetails.fromCity.country}</p>
+                                <p><strong>Latitude :</strong> {routeSelectedDetails.fromCity.latitude}</p>
+                                <p><strong>Longitude :</strong> {routeSelectedDetails.fromCity.longitude}</p>
                             </td>
                             <td>
-                                <p><strong>Ville :</strong> {cityDetails.toCity.city}</p>
-                                <p><strong>Pays :</strong> {cityDetails.toCity.country}</p>
-                                <p><strong>Latitude :</strong> {cityDetails.toCity.latitude}</p>
-                                <p><strong>Longitude :</strong> {cityDetails.toCity.longitude}</p>
+                                <p><strong>Ville :</strong> {routeSelectedDetails.toCity.city}</p>
+                                <p><strong>Pays :</strong> {routeSelectedDetails.toCity.country}</p>
+                                <p><strong>Latitude :</strong> {routeSelectedDetails.toCity.latitude}</p>
+                                <p><strong>Longitude :</strong> {routeSelectedDetails.toCity.longitude}</p>
                             </td>
                         </tr>
                         </tbody>
                     </table>
-                    <p><strong>Type de Transport :</strong> {cityDetails.typeTransportation}</p>
-                    <p><strong>Empreinte Carbone :</strong> {cityDetails.carbonFootprint} kg CO2</p>
+                    <p><strong>Type de Transport :</strong> {routeSelectedDetails.typeTransportation}</p>
+                    <p><strong>Empreinte Carbone :</strong> {routeSelectedDetails.carbonFootprint} kg CO2</p>
                     {distance && <p><strong>Distance :</strong> {distance} km</p>}
                     <div>
                         <button onClick={calculateDistance}>Calculer la distance</button>
                         <button onClick={calculateCarbonFootprint}>Calculer l'empreinte carbone</button>
+                        <button onClick={updateCarbonFootprintRoute}>Mettre à jour l'empreinte carbone</button> {/* Nouveau bouton */}
+
                     </div>
                 </div>
             )}
