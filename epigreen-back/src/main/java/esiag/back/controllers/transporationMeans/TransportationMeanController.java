@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/transportation")
+@RequestMapping("/api/transportationMean")
 public class TransportationMeanController {
 
     @Autowired
@@ -16,9 +16,12 @@ public class TransportationMeanController {
     @PostMapping("/calculateCarbonFootprint")
     public ResponseEntity<Double> calculateCarbonFootprint(@RequestBody RouteDistanceRequest request) {
         try {
+            System.out.println("Received request: " + request);
             double carbonFootprint = transportationMeanService.calculateCarbonFootprint(request.getTransportationType(), request.getDistance(), request.getArea());
+            System.out.println("Calculated carbon footprint: " + carbonFootprint);
             return ResponseEntity.ok(carbonFootprint);
         } catch (IllegalArgumentException e) {
+            System.err.println("Error: " + e.getMessage());
             return ResponseEntity.badRequest().body(null);
         }
     }

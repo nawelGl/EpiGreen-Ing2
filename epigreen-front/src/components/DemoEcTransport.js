@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 
 import {GET_PROCESS_ROUTES_BY_PRODUCT} from "../constants/back";
-import {getResultFromGeocodingApi, getResultFromRoutingApi} from "../api/Geoapify";
+import {getResultFromGeocodingApi, getResultFromRoutingApiNaw} from "../api/Geoapify";
 
 const DemoEcTransport = () => {
     const [productId, setProductId] = useState("");
@@ -66,7 +66,7 @@ const DemoEcTransport = () => {
         if (!routeSelectedDetails?.fromCity || !routeSelectedDetails?.toCity) return alert("Veuillez sélectionner une route.");
 
         try {
-            const { features } = await getResultFromRoutingApi(
+            const { features } = await getResultFromRoutingApiNaw(
                 [routeSelectedDetails.fromCity.latitude, routeSelectedDetails.fromCity.longitude],
                 [routeSelectedDetails.toCity.latitude, routeSelectedDetails.toCity.longitude]
             );
@@ -99,7 +99,7 @@ const DemoEcTransport = () => {
                 area: route.area,
             };
 
-            const response = await axios.post('http://localhost:8080/api/transportation/calculateCarbonFootprint', requestData);
+            const response = await axios.post('http://localhost:8080/api/transportationMean/calculateCarbonFootprint', requestData);
 
             const carbonFootprint = response.data;
             setCarbonFootprint(carbonFootprint);
