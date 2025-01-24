@@ -45,3 +45,5 @@ export const LOCAL_HOST_ENTREPOT = LOCAL_HOST + '/entrepot/';
 export const LOCAL_HOST_DELIVERY_SCORING_API = LOCAL_HOST + '/api/delivery-scoring/';
 export const LOCAL_HOST_DELIVERY_SCORING_API_SCORE = LOCAL_HOST_DELIVERY_SCORING_API + 'score';
 export const LOCAL_HOST_DELIVERY_SCORING_API_CO2 = LOCAL_HOST_DELIVERY_SCORING_API + 'co2';
+
+export const LOCAL_HOST_TRANSPORTATION_MEAN_API = LOCAL_HOST + 'api/transportationMean/';
