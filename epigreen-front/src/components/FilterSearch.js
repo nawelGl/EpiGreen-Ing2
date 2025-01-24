@@ -1,6 +1,9 @@
 import React, { useState } from "react";
+import axios from 'axios';
+import {SEARCH_SERVICE} from "../constants/back";
 
 export default function FilterSearch(){
+    const [results, setResults] = useState([]);
     const [filters, setFilters]= useState({
         section:"",
         category:"",
@@ -10,12 +13,36 @@ export default function FilterSearch(){
     });
     const handleFilter = (e) => {
         setFilters({ ...filters, [e.target.name]: e.target.value})
-    }
+    };
+
+    const applyFilters = async ()=>{
+        console.log("Filtres appliques:",filters);
+
+        try{
+
+            const params = new URLSearchParams({
+                section: filters.section || null,
+                category: filters.category|| null,
+                color: filters.color|| null,
+                size: filters.size|| null,
+                price: filters.price ? parseInt(filters.price) : null, //
+            });
+
+            const response = await axios.post(SEARCH_SERVICE.filterProducts,params);
+            console.log("products filtres: ", response.data);
+            setResults(response.data);
+        }catch (e){
+            console.error("Erreur lors de recherche filtres",e);
+            alert("une erreur est survenue lors de lq recherche");
+        }
+
+    };
 
     return(
         <div className="container text-center">
             <h1>Recherche avec filtres</h1>
             <h3>Filtrer par:</h3>
+            {/* selection of filters*/}
             <select name="section" value={filters.section} onChange={handleFilter}>
                 <option value="">Section</option>
                 <option value="Homme">Homme</option>
@@ -46,11 +73,38 @@ export default function FilterSearch(){
                 <option value="20">20€</option>
                 <option value="30">30€</option>
             </select>
-            <button onClick={handleFilter} style={{marginTop: "20px"}}>
+            <button onClick={applyFilters} style={{marginTop: "20px"}}>
                 Appliquer des filtres
             </button>
-        </div>
+
+            {/* result*/}
+            <div>
+                {results !== null && (
+                    <div>
+                        <h2>produits d'après votre recherche:</h2>
+                        <ul>
+                            {results.map((product, index) => (
+                                product !== null && (
+                                    <li> key={product.IdProduct}>
+                                        ID: {product.IdProduct}<br/>
+                                        Reference:{product.reference}<br/>
+                                        Section:{product.section}<br/>
+                                        Category:{product.category}<br/>
+                                        Color:{product.color}<br/>
+                                        Size:{product.size}<br/>
+                                        Price:{product.price}
+                                    </li>
+                                )
+
+                            ))}
+
+                        </ul>
+                    </div>
+                )}
+            </div>
+</div>
 
 
-    );
+)
+    ;
 }

@@ -11,6 +11,7 @@ export const SIMILARITY_SERVICE={
 export const SEARCH_API= LOCAL_HOST+'/api/similarity-search'
 export const SEARCH_SERVICE={
     findSimilarProducts: SEARCH_API,
+    filterProducts: `${LOCAL_HOST}/product/filter`,
 }
 
 
