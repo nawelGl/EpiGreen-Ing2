@@ -23,9 +23,4 @@ public class TransportationService {
         return transportationRepository.findAll();
     }
 
-    public Transportation findTransportationWithMaxCO2() {
-        Optional<Transportation> transportation = transportationRepository.findTransportationWithMaxCO2();
-        return transportation.orElse(null);
-    }
-
 }

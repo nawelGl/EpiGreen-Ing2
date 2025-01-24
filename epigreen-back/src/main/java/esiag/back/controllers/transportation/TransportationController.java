@@ -28,14 +28,4 @@ public class TransportationController {
     public ResponseEntity<List<Transportation>> findAllTransportation(){
         return new ResponseEntity<>(transportationService.findAllTransportation(), HttpStatus.OK);
     }
-
-    @GetMapping("/max-co2")
-    public ResponseEntity<Transportation> findTransportationWithMaxCO2(){
-        Transportation transportation = transportationService.findTransportationWithMaxCO2();
-        if (transportation != null) {
-            return new ResponseEntity<>(transportation, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
-    }
 }

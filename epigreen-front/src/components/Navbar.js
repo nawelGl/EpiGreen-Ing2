@@ -11,24 +11,21 @@ export default function Navbar(){
                 <Link className="nav-link" to="/sample">Sample</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/search">Search</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/similarity">Similarity</Link>
+                <Link className="nav-link" to="/customer">Customer</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/store">Store</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/livraison">Livraison</Link>
+                <Link className="nav-link" to="/demoLivraison">Livraisons (démo)</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/demoLivraison">Livraisons (démo process)</Link>
+                <Link className="nav-link" to="/logs">Logs</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/demoEcTransport">Demo EC Transport</Link>
             </li>
 
         </ul>
-);
+    );
 };

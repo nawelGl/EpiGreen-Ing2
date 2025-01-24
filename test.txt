@@ -1,6 +1,1 @@
-test declanchement build test test 2 3
-test avec adresse ngrock
-test
-TEST
-test
-test
+test config nom et email 

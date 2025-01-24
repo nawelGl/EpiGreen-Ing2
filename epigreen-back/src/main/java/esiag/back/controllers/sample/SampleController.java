@@ -40,12 +40,7 @@ public class SampleController {
     // Methode pour le insert
     @PostMapping("/add")
     public ResponseEntity<Sample> addSample(@RequestBody Sample sample) {
-        System.out.println("==========================");
-        System.out.println("Requête reçue : " + sample);
         Sample savedSample = sampleService.addSample(sample);
-        System.out.println("==========================");
-
-        System.out.println(savedSample.toString());
         return new ResponseEntity<>(savedSample, HttpStatus.CREATED);
     }
 
