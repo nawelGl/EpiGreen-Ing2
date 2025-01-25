@@ -26,6 +26,8 @@ public class TransportationMeanService {
         logger.info("avant le calcul");
         if (transportationMean.isPresent()) {
             double coefficient = transportationMean.get().getConsumption();
+
+            logger.info(String.valueOf(coefficient));
             double carbonfootprint= coefficient * distance;
             logger.info(String.valueOf(carbonfootprint));
             return carbonfootprint;

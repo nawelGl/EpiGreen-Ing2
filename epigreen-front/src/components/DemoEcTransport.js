@@ -99,7 +99,7 @@ const DemoEcTransport = () => {
                 area: route.area,
             };
 
-            const response = await axios.post('http://localhost:8080/api/transportationMean/calculateCarbonFootprint', requestData);
+            const response = await axios.post('http://localhost:8081/api/transportationMean/calculateCarbonFootprint', requestData);
 
             const carbonFootprint = response.data;
             setCarbonFootprint(carbonFootprint);
@@ -139,7 +139,7 @@ const DemoEcTransport = () => {
     
         try {
             // Update of carbon footprint 
-            await axios.post('http://localhost:8080/processroute/update', route);
+            await axios.post('http://localhost:8081/processroute/update', route);
             alert("Empreinte carbone mise à jour avec succès !");
     
             // MAJ list of routes
