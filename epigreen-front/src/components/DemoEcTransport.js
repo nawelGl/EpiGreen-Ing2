@@ -54,6 +54,7 @@ const DemoEcTransport = () => {
                 },
                 carbonFootprint: route.carbonFootprint,
                 typeTransportation: route.typeTransportation,
+                area: route.area,
             });
             setDistance(null); 
         } catch (error) {
@@ -91,7 +92,7 @@ const DemoEcTransport = () => {
             alert("Veuillez calculer la distance d'abord.");
             return;
         }
-        const route = processRoutes[0];
+        const route = routeSelectedDetails;
         try {
             const requestData = {
                 transportationType: route.typeTransportation,
