@@ -8,16 +8,10 @@ export default function Navbar(){
                 <Link className="nav-link" to="/">Home</Link>
             </li>
             <li className="nav-item">
-                <Link className="nav-link" to="/sample">Sample</Link>
-            </li>
-            <li className="nav-item">
                 <Link className="nav-link" to="/search">Search</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/similarity">Similarity</Link>
-            </li>
-            <li className="nav-item">
-                <Link className="nav-link" to="/store">Store</Link>
             </li>
             <li className="nav-item">
                 <Link className="nav-link" to="/livraison">Livraison</Link>

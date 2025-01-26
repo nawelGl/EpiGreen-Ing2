@@ -8,12 +8,16 @@ export default function Similarity() {
     const [productId1, setProductId1]= useState("");
     const [productId2, setProductId2]= useState("");
     const [result, setResult] = useState(null); // Stocker le résultat du backend
-    const [product1, setProduct1] = useState(null);
-    const [product2, setProduct2] =useState(null);
+    const [product1, setProduct1] = useState(null); //information product 1
+    const [product2, setProduct2] =useState(null); // information product 2
+    const [errorMessage, setErrorMessage]=useState(""); //error message
 
     const handleSearch = async ()=>{
         console.log("Product id1: ",productId1);
         console.log("Product id2: ",productId2);
+
+        setErrorMessage("");
+
         try {
             // calculate similarity score of products (two)
             // transition to URL-encoded
@@ -36,7 +40,15 @@ export default function Similarity() {
 
         } catch (error) {
             console.error("Erreur lors de la recherche :", error);
-            alert("Une erreur est survenue lors de la recherche.");
+            if (error.response){
+                if(error.response.status===404){
+                    setErrorMessage("product n'exsite pas")
+                }else{
+                    setErrorMessage("Veuillez saisir les ID de produit");
+                }
+            }else{
+                setErrorMessage("Network error");
+            }
         }
     };
     const handleKeyPress = (e) => {
@@ -49,8 +61,9 @@ export default function Similarity() {
     // return of result
     return (
         <div className="container text-center">
-            <h1>Similarity Search</h1><br/>
+            <h2>Similarity Search</h2><br/>
             <div className="search-bar">
+                <label>Produit 1:</label>
                 <input
                     type="text"
                     placeholder="first product id "
@@ -59,7 +72,8 @@ export default function Similarity() {
                     onKeyDown={(e) => {
                         if (e.key === 'Enter') handleSearch();
                     }} // Détection de la touche "Enter"
-                /><br/>
+                    /><br/>
+                <label>Produit 2:</label>
                 <input
                     type="text"
                     placeholder="second product id "
@@ -69,8 +83,14 @@ export default function Similarity() {
                         if (e.key === 'Enter') handleSearch();
                     }} // Détection de la touche "Enter"
                 /><br/>
-                <button onClick={handleSearch}>Enter</button>
+                <button onClick={handleSearch}>Entrer les ID</button>
             </div>
+            {/* error msg*/}
+            {errorMessage && (
+                <div style={{ color: "red", marginTop: "20px" }}>
+                    <p>{errorMessage}</p>
+                </div>
+            )}
             <div>
                 {result !== null && (
                     <div>
@@ -102,6 +122,16 @@ export default function Similarity() {
                                 <p>Color: {product2.color}</p>
                                 <p>Material: {product2.material}</p>
                                 <p>Price: ${product2.price}</p>
+                            </div>
+                        )}
+                        {product1!==null && product1.length === 0  &&(
+                            <div style={{ color: "red", marginTop: "20px" }}>
+                                <p>le produit 1 n'existe pas</p>
+                            </div>
+                        )}
+                        {product2 !==null && product2.length === 0  &&(
+                            <div style={{ color: "red", marginTop: "20px" }}>
+                                <p>le produit 2 n'existe pas</p>
                             </div>
                         )}
                     </div>
