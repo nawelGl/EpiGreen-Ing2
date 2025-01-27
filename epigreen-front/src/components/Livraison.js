@@ -144,12 +144,6 @@ export default function Livraison() {
         }
     }, [distance, transportation]);
 
-    useEffect(() => {
-        if (deliveryMethod) {
-            addPointsToAccount();
-        }
-    }, [deliveryMethod]);
-
 
     const handleUpdateDeliveryMethod = async (method) => {
         if (!window.confirm(`Confirmez-vous le mode de livraison : ${method} ?`)) return;
