@@ -27,7 +27,10 @@ public class TransportationMeanService {
         if (transportationMean.isPresent()) {
             logger.info("On rentre dans le if ");
             double coefficient = transportationMean.get().getConsumption();
+            
             double carbonfootprint= coefficient * distance;
+            carbonfootprint = Math.round(carbonfootprint * 100.0) / 100.0;
+
             logger.info(String.valueOf(carbonfootprint));
             return carbonfootprint;
         } else {

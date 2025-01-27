@@ -64,23 +64,31 @@ const DemoEcTransport = () => {
     };
 
     const calculateDistance = async () => {
-        if (!routeSelectedDetails?.fromCity || !routeSelectedDetails?.toCity) return alert("Veuillez sélectionner une route.");
-
+        if (!routeSelectedDetails?.fromCity || !routeSelectedDetails?.toCity) {
+            alert("Veuillez sélectionner une route.");
+            return;
+        }
+    
         try {
-            const { features } = await getResultFromRoutingApiNaw(
-                [routeSelectedDetails.fromCity.latitude, routeSelectedDetails.fromCity.longitude],
-                [routeSelectedDetails.toCity.latitude, routeSelectedDetails.toCity.longitude]
-            );
-            const distanceInKm = features[0]?.properties?.distance / 1000;
+            const requestData = {
+                point1: [routeSelectedDetails.fromCity.longitude, routeSelectedDetails.fromCity.latitude],
+                point2: [routeSelectedDetails.toCity.longitude, routeSelectedDetails.toCity.latitude],
+            };
+    
+            const response = await axios.post('http://localhost:8081/api/calculateDistance', requestData);
+    
+            const distanceInKm = response.data.distance; // Assurez-vous que la réponse JSON contient une clé 'distance'
             if (distanceInKm) {
                 setDistance(distanceInKm.toFixed(2));
             } else {
                 alert("La distance n'a pas pu être calculée.");
             }
         } catch (error) {
+            console.error("Erreur lors du calcul de la distance :", error);
             alert("Erreur lors du calcul de la distance.");
         }
     };
+    
 
     const calculateCarbonFootprint = async () => {
         if (!routeSelectedDetails || !routeSelectedDetails.fromCity || !routeSelectedDetails.toCity) {
