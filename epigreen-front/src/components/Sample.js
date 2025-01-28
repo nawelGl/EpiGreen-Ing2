@@ -10,6 +10,7 @@ export default function Sample() {
     stringSample: '',
     floatSample: '',
     sampleType: 'SAMPLE_TYPE1' // Exemple de valeur par défaut
+
   });
   const [isAdding, setIsAdding] = useState(false);
 
@@ -75,6 +76,7 @@ export default function Sample() {
 
   return (
     <div className="container text-center">
+
       <h4 className="mx-2">Samples List</h4>
 
       <button

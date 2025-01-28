@@ -6,7 +6,6 @@ import Navbar from "./Navbar";
 import NotFound from "./NotFound";
 import Search from "./Search";
 import Similarity from "./Similarity";
-
 import Customer from "./Customer";
 import Store from "./Store";
 import Logs from "./Logs";
@@ -14,6 +13,7 @@ import DemoLivraison from "./DemoLivraison";
 import DemoEcTransport from "./DemoEcTransport";
 import Livraison from "./Livraison";
 import FilterSearch from "./FilterSearch";
+
 
 export default function Router () {
     return (

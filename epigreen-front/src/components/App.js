@@ -5,6 +5,7 @@ import '../styles/App.css';
 export default function App() {
   return (
     <div className="App">
+
 <h2>Epigreen-SIRIUS ING2</h2>
         <p>Étudiant 1 : Shin Seulgi <br/>
             US1 : Mise en place de l'algorithme du moteur de recherche.</p>

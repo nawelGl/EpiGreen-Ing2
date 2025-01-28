@@ -1,9 +1,6 @@
-
-
 export const LOCAL_HOST = 'http://localhost:8081';
 
 // Similarity service endpoints
-
 export const SIMILARITY_API= LOCAL_HOST+'/api/similarityById'
 export const SIMILARITY_SERVICE={
     calculateSimilarity: SIMILARITY_API,
@@ -13,7 +10,6 @@ export const SEARCH_SERVICE={
     findSimilarProducts: SEARCH_API,
     filterProducts: `${LOCAL_HOST}/product/filter`,
 }
-
 
 //product service endpoints
 
