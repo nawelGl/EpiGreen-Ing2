@@ -26,7 +26,7 @@ public class Sample {
     @Column(name = "float_sample")
     private Float floatSample;
 
-
+    //annotation
     @Enumerated(EnumType.STRING)
     @Column(name = "sample_type")
     private SampleType sampleType;

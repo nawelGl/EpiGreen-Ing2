@@ -12,6 +12,7 @@ CREATE SCHEMA public;
 
 CREATE TYPE sample_type_enum AS ENUM ('SAMPLE_TYPE1', 'SAMPLE_TYPE2');
 CREATE TABLE IF NOT EXISTS sample (
+    id_sample SERIAL PRIMARY KEY,
     date_sample DATE NOT NULL,
     string_sample VARCHAR(50),
     float_sample FLOAT,

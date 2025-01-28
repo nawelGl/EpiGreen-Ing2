@@ -8,7 +8,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 public class SpringConfiguration implements WebMvcConfigurer {
     @Override   
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**") //permet de faire des croisements archi web
+        registry.addMapping("/**")
                 .allowedMethods("*");
     }
 }
